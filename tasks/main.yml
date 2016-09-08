@@ -1,0 +1,32 @@
+---
+# tasks file for opdk-setup-silent-file
+- name: Remove the old response file
+  file:
+    path: "{{ opdk_installation_config_file }}"
+    state: absent
+
+- name: Construct cassandra hosts configuration
+  cassandra_hosts:
+    inventory_hostname: '{{ inventory_hostname }}'
+    hostvars: '{{ hostvars }}'
+#    public_ip_field_name: '{{ public_ip_field_name}}'
+#    private_ip_field_name: '{{ private_ip_field_name }}'
+
+- name: Construct the silent-install file
+  template:
+    src: 'silent-install.conf.j2'
+    dest: "{{ opdk_installation_config_file }}"
+    force: yes
+    owner: '{{ opdk_user_name }}'
+    group: '{{ opdk_group_name }}'
+    mode: 0644
+  when: provided_response_file is not defined or not provided_response_file
+
+- name: Copy provided silent-install file
+  copy:
+    src: "{{ provided_response_file }}"
+    dest: "{{ opdk_installation_config_file }}"
+    owner: '{{ opdk_user_name }}'
+    group: '{{ opdk_group_name }}'
+    mode: 0644
+  when: provided_response_file is defined and provided_response_file

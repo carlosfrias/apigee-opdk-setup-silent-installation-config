@@ -33,9 +33,7 @@ ZK_CLIENT_HOSTS="{% for host in groups['dc-2-ds'] %}{{ hostvars[host][interface_
 ZK_CLIENT_HOSTS="{% for host in groups['ds'] %}{{ hostvars[host][interface_name].ipv4.address }}{% if not loop.last %} {% endif %}{% endfor %}"
 {% endif %}
 USE_CASS_CLUSTER={{ opdk_use_cass_cluster }}
-{#{%  if cassandra_hosts is defined %}#}
 CASS_HOSTS="{{ cassandra_hosts }}"
-{#{% endif %}#}
 CASS_USERNAME={{ opdk_cass_username }}
 CASS_PASSWORD={{ opdk_cass_password }}
 SKIP_SMTP={{ opdk_skip_smpt }}

@@ -56,3 +56,11 @@ PG_MASTER={{ hostvars[groups['dc-2-pgmaster'][0]][interface_name].ipv4.address }
 {% if groups['dc-2-pgstandby'] is defined and inventory_hostname in groups['dc-2']%}
 PG_STANDBY={{ hostvars[groups['dc-2-pgstandby'][0]][interface_name].ipv4.address }}
 {% endif %}
+
+{% if opdk_monetization is defined and opdk_monetization %}
+PG_USER={{ pg_user }}
+PG_PWD={{ pg_pass }}
+MO_PG_HOST="$PG_MASTER"
+MO_PG_USER={{ pg_user }}
+MO_PG_PASSWD={{ pg_pass }}
+{% endif %}

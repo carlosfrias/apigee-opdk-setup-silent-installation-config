@@ -68,7 +68,7 @@ CASS_CLUSTERNAME={{ opdk_cass_clustername }}
 APIGEE_PORT_HTTP_MS={{ ms_ext_mgmt_port }}
 {% if groups['dc-1-qpid'] is defined and inventory_hostname in groups['dc-1-qpid'] %}
 QPID_HOST="{{  groups['dc-1-qpid'] | join(' ') }}"
-{% elif groups['dc-2-qpid'] is defined and inventory_hostname in groups['dc-2-qpid'] %}
+{% else %}
 QPID_HOST="{{  groups['dc-2-qpid'] | join(' ') }}"
 {% endif %}
 QPID_PORT={{ qpid_ext_mgmt_port }}

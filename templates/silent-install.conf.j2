@@ -66,10 +66,10 @@ MO_PG_USER={{ pg_user }}
 MO_PG_PASSWD={{ pg_pass }}
 CASS_CLUSTERNAME={{ opdk_cass_clustername }}
 APIGEE_PORT_HTTP_MS={{ ms_ext_mgmt_port }}
-{% if groups['dc-1-qpid'] is defined and inventory_hostname in groups['dc-1-qpid'] %}
-    # dc-1-qpid is defined
+{#{% if groups['dc-1-qpid'] is defined and inventory_hostname in groups['dc-1-qpid'] %}#}
+{#    # dc-1-qpid is defined#}
 QPID_HOST={{ groups['dc-1-qpid'] | join(' ') }}
-{% else %}
-# dc-1-qpid is not defined
-{% endif %}
+{#{% else %}#}
+{## dc-1-qpid is not defined#}
+{#{% endif %}#}
 {% endif %}

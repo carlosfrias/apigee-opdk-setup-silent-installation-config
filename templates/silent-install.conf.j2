@@ -71,4 +71,7 @@ QPID_HOST={{  groups['dc-1-qpid'] | join(' ') }}
 {% elif groups['dc-1-qpid'] is defined and inventory_hostname in groups['dc-1-qpid'] %}
 QPID_HOST={{  groups['dc-2-qpid'] | join(' ') }}
 {% endif %}
+QPID_PORT={{ qpid_ext_mgmt_port }}
+MX_GROUP=mxgroup
+ORG_NAME={{ org_name }}
 {% endif %}

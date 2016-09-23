@@ -58,6 +58,7 @@ PG_STANDBY={{ hostvars[groups['dc-2-pgstandby'][0]][interface_name].ipv4.address
 {% endif %}
 
 {% if opdk_monetization is defined and opdk_monetization %}
+# Monetization has been configured
 PG_USER={{ pg_user }}
 PG_PWD={{ pg_pass }}
 MO_PG_HOST="$PG_MASTER"
@@ -65,4 +66,7 @@ MO_PG_USER={{ pg_user }}
 MO_PG_PASSWD={{ pg_pass }}
 CASS_CLUSTERNAME={{ opdk_cass_clustername }}
 APIGEE_PORT_HTTP_MS={{ ms_ext_mgmt_port }}
+{% if groups['dc-1-qpid'] is defined and inventory_hostname in groups['dc-1-qpid'] %}
+QPID_HOST={{ groups['dc-1-qpid'] | join(' ') }}
+{% endif %}
 {% endif %}

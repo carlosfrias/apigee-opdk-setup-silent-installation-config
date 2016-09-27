@@ -9,8 +9,9 @@
   cassandra_hosts:
     inventory_hostname: '{{ inventory_hostname }}'
     hostvars: '{{ hostvars }}'
-#    public_ip_field_name: '{{ public_ip_field_name}}'
-#    private_ip_field_name: '{{ private_ip_field_name }}'
+
+- name: Refresh node facts
+  setup:
 
 - name: Construct the silent-install file
   template:

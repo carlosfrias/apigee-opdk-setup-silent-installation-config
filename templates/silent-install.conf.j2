@@ -37,11 +37,13 @@ CASS_HOSTS="{{ cassandra_hosts }}"
 CASS_USERNAME={{ opdk_cass_username }}
 CASS_PASSWORD={{ opdk_cass_password }}
 SKIP_SMTP={{ opdk_skip_smpt }}
+{% if opdk_skip_smpt  %}
 SMTPHOST={{ opdk_smtp_host }}
 SMTPPORT={{ opdk_smtp_port }}
 SMTPUSER={{ opdk_smtp_user }}
 SMTPPASSWORD={{ opdk_smtp_password }}
 SMTPSSL={{ opdk_smtp_ssl }}
+{% endif %}
 BIND_ON_ALL_INTERFACES={{ opdk_bind_on_all_interfaces }}
 
 {% if groups['dc-1-pgmaster'] is defined and inventory_hostname in groups['dc-1'] %}

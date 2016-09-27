@@ -10,9 +10,6 @@
     inventory_hostname: '{{ inventory_hostname }}'
     hostvars: '{{ hostvars }}'
 
-- name: Refresh node facts
-  setup:
-
 - name: Construct the silent-install file
   template:
     src: 'silent-install.conf.j2'

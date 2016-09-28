@@ -5,11 +5,6 @@
     path: "{{ opdk_installation_config_file }}"
     state: absent
 
-- name: Construct cassandra hosts configuration
-  cassandra_hosts:
-    inventory_hostname: '{{ inventory_hostname }}'
-    hostvars: '{{ hostvars }}'
-
 - name: Fail if ldap password is not provided
   fail:
     msg: "Ldap password is required, please provide ldap password"
@@ -29,6 +24,11 @@
   fail:
     msg: 'ds group is not defined in the inventory file, please define the ds group in the inventory file'
   when: groups['ds'] is not defined
+
+- name: Construct cassandra hosts configuration
+  cassandra_hosts:
+    inventory_hostname: '{{ inventory_hostname }}'
+    hostvars: '{{ hostvars }}'
 
 - name: Construct the silent-install file
   template:

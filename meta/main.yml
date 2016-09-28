@@ -1,7 +1,7 @@
 galaxy_info:
-  author: your name
+  author: Carlos Frias
   description: your description
-  company: your company (optional)
+  company: Apigee
 
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value
@@ -16,7 +16,7 @@ galaxy_info:
   # - CC-BY
   license: Apache
 
-  min_ansible_version: 1.2
+  min_ansible_version: 2.0
 
   # Optionally specify the branch Galaxy will use when accessing the GitHub
   # repo for this role. During role install, if no tags are available,
@@ -155,8 +155,8 @@ galaxy_info:
   #  - lenny
   #  - sid
   #  - squeeze
-  #  - stretch
-  #  - wheezy
+
+
 
   galaxy_tags: []
     # List tags for your role here, one per line. A tag is

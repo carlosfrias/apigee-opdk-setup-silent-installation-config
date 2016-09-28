@@ -36,8 +36,8 @@ USE_CASS_CLUSTER={{ opdk_use_cass_cluster }}
 CASS_HOSTS="{{ cassandra_hosts }}"
 CASS_USERNAME={{ opdk_cass_username }}
 CASS_PASSWORD={{ opdk_cass_password }}
-SKIP_SMTP={{ opdk_skip_smpt }}
-{% if opdk_skip_smpt | bool %}
+SKIP_SMTP={{ opdk_skip_smtp }}
+{% if opdk_skip_smtp | bool %}
 SMTPHOST={{ opdk_smtp_host }}
 SMTPPORT={{ opdk_smtp_port }}
 SMTPUSER={{ opdk_smtp_user }}

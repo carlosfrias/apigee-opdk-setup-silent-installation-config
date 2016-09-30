@@ -5,10 +5,8 @@ import json
 
 GROUPS = 'groups'
 PUBLIC_ADDRESS = 'public_address'
-# SEMANTIC_PUBLIC_ADDRESS = None
 RACK = "rack"
 LOCAL_ADDRESS = 'local_address'
-# SEMANTIC_PRIVATE_ADDRESS = None
 LEAD_GROUP = 'lead_group'
 
 
@@ -78,8 +76,6 @@ def main():
             argument_spec=dict(
                     inventory_hostname=dict(required=True),
                     hostvars=dict(required=True),
-                    # public_ip_field_name=dict(required=False, choices=['ec2_ip_address', 'public_address']),
-                    # private_ip_field_name=dict(required=False, choices=['ec2_private_ip_address', 'local_address'])
             )
     )
     # global SEMANTIC_PRIVATE_ADDRESS, SEMANTIC_PUBLIC_ADDRESS

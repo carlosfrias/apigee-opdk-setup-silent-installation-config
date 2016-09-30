@@ -18,11 +18,13 @@ LDAP_PEER={{ hostvars[groups['dc-1-ldap'][0]][interface_name].ipv4.address  }}
 APIGEE_LDAPPW="{{ opdk_ldap_pass }}"
 ENABLE_AX={{ opdk_enable_ax }}
 MP_POD={{ opdk_mp_pod }}
+
 {% if groups['dc-1'] is defined and inventory_hostname in groups['dc-1'] %}
 REGION=dc-1
 {% elif groups['dc-2'] is defined and inventory_hostname in groups['dc-2'] %}
 REGION=dc-2
 {% endif %}
+
 USE_ZK_CLUSTER={{ opdk_use_zk_cluster }}
 ZK_HOSTS="{% for host in groups['ds'] %}{{ hostvars[host][interface_name].ipv4.address }}{% if hostvars[host]['zk_observer'] is defined and hostvars[host]['zk_observer'] %}:observer{% endif %}{% if not loop.last %} {% endif %}{% endfor %}"
 {% if groups['dc-1'] is defined and inventory_hostname in groups['dc-1'] %}
@@ -45,18 +47,16 @@ SMTPPASSWORD={{ opdk_smtp_password }}
 SMTPSSL={{ opdk_smtp_ssl }}
 {% endif %}
 BIND_ON_ALL_INTERFACES={{ opdk_bind_on_all_interfaces }}
-
-{% if groups['dc-1-pgmaster'] is defined and inventory_hostname in groups['dc-1'] %}
-PG_MASTER={{ hostvars[groups['dc-1-pgmaster'][0]][interface_name].ipv4.address }}
+{% if inventory_hostname in groups['dc-2'] %}
+{% if groups['dc-2-pgmaster'] is defined and groups['dc-2-pgstandby'] is defined %}
+PG_MASTER={{ hostvars[groups['dc-2-pgmaster'][0]][interface_name].ipv4.address }}
+PG_STANDBY={{ hostvars[groups['dc-2-pgstandby'][0]][interface_name].ipv4.address }}
 {% endif %}
-{% if groups['dc-1-pgstandby'] is defined and inventory_hostname in groups['dc-1']%}
+{% elif %}
+{% if groups['dc-1-pgmaster'] is defined and groups['dc-1-pgstandby'] is defined %}
+PG_MASTER={{ hostvars[groups['dc-1-pgmaster'][0]][interface_name].ipv4.address }}
 PG_STANDBY={{ hostvars[groups['dc-1-pgstandby'][0]][interface_name].ipv4.address }}
 {% endif %}
-{% if groups['dc-2-pgmaster'] is defined and inventory_hostname in groups['dc-2'] %}
-PG_MASTER={{ hostvars[groups['dc-2-pgmaster'][0]][interface_name].ipv4.address }}
-{% endif %}
-{% if groups['dc-2-pgstandby'] is defined and inventory_hostname in groups['dc-2']%}
-PG_STANDBY={{ hostvars[groups['dc-2-pgstandby'][0]][interface_name].ipv4.address }}
 {% endif %}
 
 {% if opdk_monetization is defined and opdk_monetization %}

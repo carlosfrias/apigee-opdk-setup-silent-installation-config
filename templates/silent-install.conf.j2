@@ -49,7 +49,7 @@ BIND_ON_ALL_INTERFACES={{ opdk_bind_on_all_interfaces }}
 {% if groups['dc-2-pgmaster'] is defined and groups['dc-2-pgstandby'] is defined and inventory_hostname in groups['dc-2'] %}
 PG_MASTER={{ hostvars[groups['dc-2-pgmaster'][0]][interface_name].ipv4.address }}
 PG_STANDBY={{ hostvars[groups['dc-2-pgstandby'][0]][interface_name].ipv4.address }}
-{% else %}
+{% elif groups['dc-2-pgmaster'] is defined and groups['dc-2-pgstandby'] is defined  %}
 PG_MASTER={{ hostvars[groups['dc-1-pgmaster'][0]][interface_name].ipv4.address }}
 PG_STANDBY={{ hostvars[groups['dc-1-pgstandby'][0]][interface_name].ipv4.address }}
 {% endif %}

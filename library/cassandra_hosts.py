@@ -28,11 +28,10 @@ def extract_cassandra_groups(inventory_vars, hostvars):
     for cassandra_group_name in cassandra_groups:
         cassandra_ip_mappings[cassandra_group_name] = {}
         for ds_ip in cassandra_groups[cassandra_group_name]:
-            try:
-                private_ip = hostvars[ds_ip]['ec2_private_ip_address']
-            except:
-                private_ip = hostvars[ds_ip]['ansible_eth0']['ipv4']['address']
-
+            # try:
+                # private_ip = hostvars[ds_ip]['ec2_private_ip_address']
+            # except:
+            private_ip = hostvars[ds_ip]['ansible_eth0']['ipv4']['address']
             cassandra_ip_mappings[cassandra_group_name][ds_ip] = { 'private_ip': private_ip }
     return cassandra_ip_mappings
 
@@ -85,10 +84,11 @@ def main():
     inventory_hostname = module.params['inventory_hostname']
     hostvars = module.params['hostvars']
 
+    with open('~/.ansible/tmp/hostvars.json','w') as hostvars_file:
+        hostvars_file.write(hostvars)
+
     hostvars = ast.literal_eval(hostvars)
     hostvars = json.dumps(hostvars)
-    with open('hostvars.json','w') as hostvars_file:
-        hostvars_file.write(hostvars)
     hostvars = json.loads(hostvars)
 
     cass_hosts = build_cass_hosts_config(inventory_hostname, hostvars)

@@ -25,10 +25,16 @@
     msg: 'ds group is not defined in the inventory file, please define the ds group in the inventory file'
   when: groups['ds'] is not defined
 
+- name: Set hostvars as string
+  set_fact:
+    host_variables: '{{ hostvars | to_json }}'
+- pause:
+
+
 - name: Construct cassandra hosts configuration
   cassandra_hosts:
     inventory_hostname: '{{ inventory_hostname }}'
-    hostvars: '{{ hostvars | to_json }}'
+    hostvars: '{{ host_variables }}'
 
 - name: Construct the silent-install file
   template:

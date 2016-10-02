@@ -84,7 +84,7 @@ def main():
     inventory_hostname = module.params['inventory_hostname']
     hostvars = module.params['hostvars']
 
-    with open('~/.ansible/tmp/hostvars.json','w') as hostvars_file:
+    with open('/Users/carlosfrias/.ansible/tmp/hostvars.json','w') as hostvars_file:
         hostvars_file.write(hostvars)
 
     hostvars = ast.literal_eval(hostvars)

@@ -1,4 +1,3 @@
-from os.path import expanduser
 from ansible.module_utils.basic import *
 import ast
 import json
@@ -84,7 +83,8 @@ def main():
 
     inventory_hostname = module.params['inventory_hostname']
     hostvars = module.params['hostvars']
-    with open(expanduser('~') + '/.ansible/tmp/hostvars.json','w') as hostvars_file:
+
+    with open('hostvars.json','w') as hostvars_file:
         hostvars_file.write(hostvars)
 
     hostvars = ast.literal_eval(hostvars)

@@ -8,6 +8,7 @@ PUBLIC_ADDRESS = 'public_address'
 RACK = "rack"
 LOCAL_ADDRESS = 'local_address'
 LEAD_GROUP = 'lead_group'
+HOSTVARS_FILE = 'hostvars.json'
 
 
 def build_cass_hosts_config(inventory_hostname, hostvars):
@@ -84,16 +85,19 @@ def main():
     inventory_hostname = module.params['inventory_hostname']
     hostvars = module.params['hostvars']
 
-    with open('hostvars.json','w') as hostvars_file:
+    with open(HOSTVARS_FILE,'w') as hostvars_file:
         hostvars_file.write(hostvars)
 
     try:
-        hostvars = ast.literal_eval(hostvars)
+        with open(HOSTVARS_FILE,'r') as hostvars_file:
+            hostvars = json.load(hostvars_file)
     except:
+        with open(HOSTVARS_FILE,'r') as hostvars_file:
+            hostvars_data = hostvars_file.read()
+            hostvars_ast = ast.literal_eval(hostvars_data)
+            hostvars_json_dump = json.dumps(hostvars_ast)
+            hostvars = json.load(hostvars_json_dump)
         pass
-
-    hostvars = json.dumps(hostvars)
-    hostvars = json.loads(hostvars)
 
     cass_hosts = build_cass_hosts_config(inventory_hostname, hostvars)
     cass_hosts = json.dumps(cass_hosts)

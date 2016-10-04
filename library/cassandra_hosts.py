@@ -1,5 +1,5 @@
 from ansible.module_utils.basic import *
-import ast
+# import ast
 import simplejson as json
 
 
@@ -33,7 +33,7 @@ def extract_cassandra_groups(inventory_vars, hostvars):
                 # private_ip = hostvars[ds_ip]['ec2_private_ip_address']
             # except:
             private_ip = hostvars[ds_ip]['ansible_eth0']['ipv4']['address']
-            cassandra_ip_mappings[cassandra_group_name][ds_ip] = { 'private_ip': private_ip }
+            cassandra_ip_mappings[cassandra_group_name][ds_ip] = {'private_ip': private_ip}
     return cassandra_ip_mappings
 
 
@@ -86,7 +86,7 @@ def main():
     inventory_hostname = module.params['inventory_hostname']
     hostvars = module.params['hostvars']
 
-    with open(HOSTVARS_FILE,'w') as hostvars_file:
+    with open(HOSTVARS_FILE, 'w') as hostvars_file:
         hostvars_file.write(json.dumps(hostvars))
 
     # try:

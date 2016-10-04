@@ -75,7 +75,7 @@ def main():
     module = AnsibleModule(
             argument_spec=dict(
                     inventory_hostname=dict(required=True),
-                    hostvars=dict(required=True),
+                    hostvars=dict(type=dict, required=True),
             )
     )
     # global SEMANTIC_PRIVATE_ADDRESS, SEMANTIC_PUBLIC_ADDRESS
@@ -86,18 +86,18 @@ def main():
     hostvars = module.params['hostvars']
 
     with open(HOSTVARS_FILE,'w') as hostvars_file:
-        hostvars_file.write(hostvars.strip('\n\r'))
+        hostvars_file.write(hostvars)
 
-    try:
-        with open(HOSTVARS_FILE,'r') as hostvars_file:
-            hostvars = json.load(hostvars_file)
-    except:
-        with open(HOSTVARS_FILE,'r') as hostvars_file:
-            hostvars_data = hostvars_file.read()
-            hostvars_ast = ast.literal_eval(hostvars_data)
-            hostvars_json_dump = json.dumps(hostvars_ast)
-            hostvars = json.loads(hostvars_json_dump)
-        pass
+    # try:
+    #     with open(HOSTVARS_FILE,'r') as hostvars_file:
+    #         hostvars = json.load(hostvars_file)
+    # except:
+    #     with open(HOSTVARS_FILE,'r') as hostvars_file:
+    #         hostvars_data = hostvars_file.read()
+    #         hostvars_ast = ast.literal_eval(hostvars_data)
+    #         hostvars_json_dump = json.dumps(hostvars_ast)
+    #         hostvars = json.loads(hostvars_json_dump)
+    #
 
     cass_hosts = build_cass_hosts_config(inventory_hostname, hostvars)
     cass_hosts = json.dumps(cass_hosts)

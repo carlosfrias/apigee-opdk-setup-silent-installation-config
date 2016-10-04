@@ -86,7 +86,7 @@ def main():
     hostvars = module.params['hostvars']
 
     with open(HOSTVARS_FILE,'w') as hostvars_file:
-        hostvars_file.write(hostvars.strip())
+        hostvars_file.write(hostvars.strip('\n\r'))
 
     try:
         with open(HOSTVARS_FILE,'r') as hostvars_file:

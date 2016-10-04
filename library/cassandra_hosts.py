@@ -75,7 +75,7 @@ def main():
     module = AnsibleModule(
             argument_spec=dict(
                     inventory_hostname=dict(required=True),
-                    hostvars=dict(required=True),
+                    hostvars=dict(required=True, type='jsonarg'),
             )
     )
     # global SEMANTIC_PRIVATE_ADDRESS, SEMANTIC_PUBLIC_ADDRESS

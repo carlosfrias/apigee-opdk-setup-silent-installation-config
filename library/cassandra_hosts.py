@@ -75,7 +75,7 @@ def main():
     module = AnsibleModule(
             argument_spec=dict(
                     inventory_hostname=dict(required=True, type='str'),
-                    hostvars=dict(required=True, type='dict'),
+                    hostvars=dict(required=True, type='jsonarg'),
             )
     )
 

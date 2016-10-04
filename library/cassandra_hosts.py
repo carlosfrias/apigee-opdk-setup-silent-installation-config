@@ -78,6 +78,7 @@ def main():
                     hostvars=dict(required=True, type='jsonarg'),
             )
     )
+
     # global SEMANTIC_PRIVATE_ADDRESS, SEMANTIC_PUBLIC_ADDRESS
     # SEMANTIC_PRIVATE_ADDRESS = module.params['private_ip_field_name']
     # SEMANTIC_PUBLIC_ADDRESS = module.params['public_ip_field_name']
@@ -88,16 +89,15 @@ def main():
     with open(HOSTVARS_FILE,'w') as hostvars_file:
         hostvars_file.write(hostvars)
 
-    # try:
-    #     with open(HOSTVARS_FILE,'r') as hostvars_file:
-    #         hostvars = json.load(hostvars_file)
-    # except:
-    #     with open(HOSTVARS_FILE,'r') as hostvars_file:
-    #         hostvars_data = hostvars_file.read()
-    #         hostvars_ast = ast.literal_eval(hostvars_data)
-    #         hostvars_json_dump = json.dumps(hostvars_ast)
-    #         hostvars = json.loads(hostvars_json_dump)
-    #
+    try:
+        with open(HOSTVARS_FILE,'r') as hostvars_file:
+            hostvars = json.load(hostvars_file)
+    except:
+        with open(HOSTVARS_FILE,'r') as hostvars_file:
+            hostvars_data = hostvars_file.read()
+            hostvars_ast = ast.literal_eval(hostvars_data)
+            hostvars_json_dump = json.dumps(hostvars_ast)
+            hostvars = json.loads(hostvars_json_dump)
 
     cass_hosts = build_cass_hosts_config(inventory_hostname, hostvars)
     cass_hosts = json.dumps(cass_hosts)

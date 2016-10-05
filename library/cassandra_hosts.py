@@ -1,6 +1,6 @@
 from ansible.module_utils.basic import *
 import ast
-import simplejson as json
+import json
 
 
 GROUPS = 'groups'

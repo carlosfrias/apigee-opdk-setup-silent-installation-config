@@ -89,9 +89,10 @@ def main():
     with open(HOSTVARS_FILE, 'w') as hostvars_file:
         hostvars_file.write(json.dumps(hostvars))
 
+    with open(HOSTVARS_FILE,'r') as hostvars_file:
+        hostvars = json.load(hostvars_file)
+
     # try:
-    #     with open(HOSTVARS_FILE,'r') as hostvars_file:
-    #         hostvars = json.load(hostvars_file)
     # except:
     #     with open(HOSTVARS_FILE,'r') as hostvars_file:
     #         hostvars_data = hostvars_file.read()

@@ -32,10 +32,14 @@
 #  debug: var=hostvars
 #- pause:
 
+- name: Convert to json
+  set_facts:
+    hostvars_json: '{{ hostvars | to_json }}'
+
 - name: Construct cassandra hosts configuration
   cassandra_hosts:
     inventory_hostname: '{{ inventory_hostname }}'
-    hostvars: '{{ hostvars | to_json }}'
+    hostvars: '{{ hostvars_json }}'
 
 - name: Construct the silent-install file
   template:

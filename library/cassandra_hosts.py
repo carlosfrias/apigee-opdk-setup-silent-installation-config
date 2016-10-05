@@ -5,10 +5,11 @@ import json
 
 GROUPS = 'groups'
 PUBLIC_ADDRESS = 'public_address'
+# SEMANTIC_PUBLIC_ADDRESS = None
 RACK = "rack"
 LOCAL_ADDRESS = 'local_address'
+# SEMANTIC_PRIVATE_ADDRESS = None
 LEAD_GROUP = 'lead_group'
-HOSTVARS_FILE = 'hostvars.json'
 
 
 def build_cass_hosts_config(inventory_hostname, hostvars):
@@ -29,8 +30,12 @@ def extract_cassandra_groups(inventory_vars, hostvars):
     for cassandra_group_name in cassandra_groups:
         cassandra_ip_mappings[cassandra_group_name] = {}
         for ds_ip in cassandra_groups[cassandra_group_name]:
-            private_ip = hostvars[ds_ip]['ansible_eth0']['ipv4']['address']
-            cassandra_ip_mappings[cassandra_group_name][ds_ip] = {'private_ip': private_ip}
+            try:
+                private_ip = hostvars[ds_ip]['ec2_private_ip_address']
+            except:
+                private_ip = hostvars[ds_ip]['ansible_eth0']['ipv4']['address']
+
+            cassandra_ip_mappings[cassandra_group_name][ds_ip] = { 'private_ip': private_ip }
     return cassandra_ip_mappings
 
 
@@ -71,18 +76,24 @@ def prioritize_cassandra_groups(cassandra_groups):
 def main():
     module = AnsibleModule(
             argument_spec=dict(
-                    inventory_hostname=dict(required=True, type='str'),
-                    hostvars=dict(required=True, type='str'),
+                    inventory_hostname=dict(required=True),
+                    hostvars=dict(required=True),
+                    # public_ip_field_name=dict(required=False, choices=['ec2_ip_address', 'public_address']),
+                    # private_ip_field_name=dict(required=False, choices=['ec2_private_ip_address', 'local_address'])
             )
     )
+    # global SEMANTIC_PRIVATE_ADDRESS, SEMANTIC_PUBLIC_ADDRESS
+    # SEMANTIC_PRIVATE_ADDRESS = module.params['private_ip_field_name']
+    # SEMANTIC_PUBLIC_ADDRESS = module.params['public_ip_field_name']
 
     inventory_hostname = module.params['inventory_hostname']
-    hostvars_str = module.params['hostvars']
-    hostvars_dump = json.dumps(hostvars_str)
-    hostvars = json.loads(hostvars_dump)
+    hostvars = module.params['hostvars']
 
-    with open(HOSTVARS_FILE, 'w') as hostvars_file:
-        hostvars_file.write(hostvars_dump)
+    hostvars = ast.literal_eval(hostvars)
+    hostvars = json.dumps(hostvars)
+    with open('hostvars.json','w') as hostvars_file:
+        hostvars_file.write(hostvars)
+    hostvars = json.loads(hostvars)
 
     cass_hosts = build_cass_hosts_config(inventory_hostname, hostvars)
     cass_hosts = json.dumps(cass_hosts)

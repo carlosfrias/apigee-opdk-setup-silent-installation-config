@@ -5,6 +5,7 @@
     - opdk-setup-default-settings
   tasks:
   - name: Configure cassandra hosts
+    ignore_errors: yes
     cassandra_hosts:
       inventory_hostname: '{{ inventory_hostname }}'
       hostvars: '{{ hostvars }}'

@@ -26,7 +26,7 @@ def extract_cassandra_groups(inventory_vars, hostvars):
         if 'dc-' in name and '-ds' in name:
             cassandra_groups[name] = list(inventory_vars[GROUPS][name])
 
-    cassandra_ip_mappings= { 'lead_group': '' }
+    cassandra_ip_mappings = {'lead_group': ''}
     for cassandra_group_name in cassandra_groups:
         cassandra_ip_mappings[cassandra_group_name] = {}
         for ds_ip in cassandra_groups[cassandra_group_name]:
@@ -39,11 +39,13 @@ def extract_cassandra_groups(inventory_vars, hostvars):
     return cassandra_ip_mappings
 
 
-def configure_cassandra_racks(cassandra_groups, hostvars, inventory_hostname):
+def configure_cassandra_racks(cassandra_groups):
     for cassandra_group_name in cassandra_groups:
         group_name_parts = cassandra_group_name.split('-')
         for ds_ip in cassandra_groups[cassandra_group_name]:
-            cassandra_groups[cassandra_group_name][ds_ip]['private_ip'] = cassandra_groups[cassandra_group_name][ds_ip]['private_ip'] + ":" + group_name_parts[1] + ',1'
+            cassandra_groups[cassandra_group_name][ds_ip]['private_ip'] = \
+                cassandra_groups[cassandra_group_name][ds_ip]['private_ip'] + \
+                ":" + group_name_parts[1] + ',1'
     return cassandra_groups
 
 
@@ -87,7 +89,7 @@ def main():
     # SEMANTIC_PUBLIC_ADDRESS = module.params['public_ip_field_name']
 
     inventory_hostname = module.params['inventory_hostname']
-    hostvars = module.params['hostvars']
+    hostvars = module.params['hostvars'][-1:1]
 
     hostvars = ast.literal_eval(hostvars)
     hostvars = json.dumps(hostvars)

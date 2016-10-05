@@ -27,7 +27,7 @@
 
 - name: Convert to json
   cache:
-    key: hostvars_json
+    key: 'hostvars_json'
     value: '{{ hostvars }}'
 
 - name: Construct cassandra hosts configuration

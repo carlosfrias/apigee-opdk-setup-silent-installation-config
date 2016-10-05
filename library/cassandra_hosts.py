@@ -96,6 +96,8 @@ def main():
     #         hostvars_ast = ast.literal_eval(hostvars_data)
     #         hostvars_json_dump = json.dumps(hostvars_ast)
     #         hostvars = json.loads(hostvars_json_dump)
+    with open(HOSTVARS_FILE, 'r') as hostvars_file:
+        hostvars = json.loads(hostvars)
 
     cass_hosts = build_cass_hosts_config(inventory_hostname, hostvars)
     cass_hosts = json.dumps(cass_hosts)

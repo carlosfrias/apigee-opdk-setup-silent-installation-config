@@ -29,9 +29,6 @@ def extract_cassandra_groups(inventory_vars, hostvars):
     for cassandra_group_name in cassandra_groups:
         cassandra_ip_mappings[cassandra_group_name] = {}
         for ds_ip in cassandra_groups[cassandra_group_name]:
-            # try:
-                # private_ip = hostvars[ds_ip]['ec2_private_ip_address']
-            # except:
             private_ip = hostvars[ds_ip]['ansible_eth0']['ipv4']['address']
             cassandra_ip_mappings[cassandra_group_name][ds_ip] = {'private_ip': private_ip}
     return cassandra_ip_mappings
@@ -79,27 +76,13 @@ def main():
             )
     )
 
-    # global SEMANTIC_PRIVATE_ADDRESS, SEMANTIC_PUBLIC_ADDRESS
-    # SEMANTIC_PRIVATE_ADDRESS = module.params['private_ip_field_name']
-    # SEMANTIC_PUBLIC_ADDRESS = module.params['public_ip_field_name']
-
     inventory_hostname = module.params['inventory_hostname']
-    hostvars = module.params['hostvars']
-    hostvars_dump = json.dumps(hostvars)
+    hostvars_str = module.params['hostvars']
+    hostvars_dump = json.dumps(hostvars_str)
+    hostvars = json.loads(hostvars_dump)
 
     with open(HOSTVARS_FILE, 'w') as hostvars_file:
-        hostvars_file.write(json.dumps(hostvars_dump))
-
-    hostvars_ast = ast.literal_eval(hostvars_dump)
-    hostvars_dump = json.dumps(hostvars_ast)
-
-    # except:
-    #     with open(HOSTVARS_FILE,'r') as hostvars_file:
-    #         hostvars_data = hostvars_file.read()
-    #         hostvars_json_dump = json.dumps(hostvars_ast)
-    #         hostvars = json.loads(hostvars_json_dump)
-
-    hostvars = json.loads(hostvars_dump)
+        hostvars_file.write(hostvars_dump)
 
     cass_hosts = build_cass_hosts_config(inventory_hostname, hostvars)
     cass_hosts = json.dumps(cass_hosts)

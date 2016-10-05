@@ -1,5 +1,5 @@
 ---
-- hosts: '{{ hosts }}'
+- hosts: planet
   remote_user: root
   roles:
     - opdk-setup-default-settings
@@ -12,8 +12,8 @@
     cassandra_hosts:
       inventory_hostname: '{{ inventory_hostname }}'
       hostvars: '{{ hostvars }}'
-      public_ip_field_name: 'ec2_ip_address'
-      private_ip_field_name: 'ec2_private_ip_address'
+#      public_ip_field_name: 'ec2_ip_address'
+#      private_ip_field_name: 'ec2_private_ip_address'
 
   - name: get debug file
     become: yes

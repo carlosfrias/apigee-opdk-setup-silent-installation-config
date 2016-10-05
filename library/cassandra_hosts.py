@@ -91,7 +91,7 @@ def main():
         hostvars_file.write(json.dumps(hostvars_dump))
 
     hostvars_ast = ast.literal_eval(hostvars_dump)
-    hostvars_dump = json.dump(hostvars_ast)
+    hostvars_dump = json.dumps(hostvars_ast)
 
     # except:
     #     with open(HOSTVARS_FILE,'r') as hostvars_file:

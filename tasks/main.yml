@@ -25,16 +25,10 @@
     msg: 'ds group is not defined in the inventory file, please define the ds group in the inventory file'
   when: groups['ds'] is not defined
 
-#- name: Show hostvars as string
-#  debug: var=hostvars
-#
-#- name: Show inventory_hostname
-#  debug: var=hostvars
-#- pause:
-
 - name: Convert to json
-  set_fact:
-    hostvars_json: '{{ hostvars | to_json }}'
+  cache:
+    key: hostvars_json
+    value: '{{ hostvars }}'
 
 - name: Construct cassandra hosts configuration
   cassandra_hosts:

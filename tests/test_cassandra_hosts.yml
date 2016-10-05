@@ -12,7 +12,7 @@
   - name: get debug file
     become: yes
     fetch:
-      src: ~/cass_host_file.json
+      src: hostvars.json
       dest: hostvars
 
   - debug: var=cassandra_hosts

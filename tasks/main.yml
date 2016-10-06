@@ -33,7 +33,8 @@
 - name: Construct cassandra hosts configuration
   cassandra_hosts:
     inventory_hostname: '{{ inventory_hostname }}'
-    hostvars: "{{ hostvars.__repr__().encode('base64')  }}"
+    hostvars: "{{ hostvars.__repr__().encode('base64') }}"
+  when: provided_response_file is not defined or not provided_response_file
 
 - name: Construct the silent-install file
   template:

@@ -76,8 +76,8 @@ def main():
     module = AnsibleModule(
             argument_spec=dict(
                     inventory_hostname=dict(required=True, type='str'),
-                    hostvars=dict(required=True, type="str"),
-                    _ansible_debug=dict(required=False, type='bool')
+                    hostvars=dict(required=True, type="str")
+                    # _ansible_debug=dict(required=False, type='bool')
                     # public_ip_field_name=dict(required=False, choices=['ec2_ip_address', 'public_address']),
                     # private_ip_field_name=dict(required=False, choices=['ec2_private_ip_address', 'local_address'])
             )
@@ -86,14 +86,14 @@ def main():
     # SEMANTIC_PRIVATE_ADDRESS = module.params['private_ip_field_name']
     # SEMANTIC_PUBLIC_ADDRESS = module.params['public_ip_field_name']
 
-    debug = module.params['_ansible_debug']
+    # debug = module.params['_ansible_debug']
     inventory_hostname = module.params['inventory_hostname']
     hostvars = module.params['hostvars']
     hostvars = module.safe_eval(hostvars.decode('base64'))
 
-    if debug:
-        with open('hostvars.json','w') as hostvars_file:
-            hostvars_file.write(hostvars)
+    # if debug:
+    with open('hostvars.json','w') as hostvars_file:
+        hostvars_file.write(hostvars)
 
     hostvars = json.dumps(hostvars)
     hostvars = json.loads(hostvars)

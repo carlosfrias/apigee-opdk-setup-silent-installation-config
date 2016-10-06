@@ -34,7 +34,7 @@
   cassandra_hosts:
     inventory_hostname: '{{ inventory_hostname }}'
     hostvars: "{{ hostvars.__repr__().encode('base64')  }}"
-    _ansible_debug: true
+    debug: true
 
 - name: Construct the silent-install file
   template:

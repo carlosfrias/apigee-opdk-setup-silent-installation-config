@@ -89,7 +89,7 @@ def main():
     # SEMANTIC_PUBLIC_ADDRESS = module.params['public_ip_field_name']
 
     inventory_hostname = module.params['inventory_hostname']
-    hostvars = module.params['hostvars'][-1:1]
+    hostvars = module.params['hostvars']
 
     hostvars = ast.literal_eval(hostvars)
     hostvars = json.dumps(hostvars)

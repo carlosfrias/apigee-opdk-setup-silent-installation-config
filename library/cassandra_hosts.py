@@ -85,6 +85,7 @@ def main():
     # global SEMANTIC_PRIVATE_ADDRESS, SEMANTIC_PUBLIC_ADDRESS
     # SEMANTIC_PRIVATE_ADDRESS = module.params['private_ip_field_name']
     # SEMANTIC_PUBLIC_ADDRESS = module.params['public_ip_field_name']
+
     debug = module.params['_ansible_debug']
     inventory_hostname = module.params['inventory_hostname']
     hostvars = module.params['hostvars']

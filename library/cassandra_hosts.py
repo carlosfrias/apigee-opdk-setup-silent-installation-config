@@ -80,7 +80,7 @@ def main():
 
     inventory_hostname = module.params['inventory_hostname']
     hostvars = module.params['hostvars']
-    hostvars = module.safe_eval(str(hostvars.decode('base64')))
+    hostvars = hostvars.decode('base64')
     # hostvars = ast.literal_eval(hostvars)
     with open('hostvars.json','w') as hostvars_file:
         hostvars_file.write(hostvars)

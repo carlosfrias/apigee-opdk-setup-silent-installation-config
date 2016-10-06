@@ -30,6 +30,11 @@
     inventory_hostname: '{{ inventory_hostname }}'
     hostvars: '{{ hostvars }}'
 
+- name: Construct cassandra hosts configuration
+  cassandra_hosts:
+    inventory_hostname: '{{ apigee_topology.__repr__().encode('base64') }}'
+    hostvars: '{{ hostvars }}'
+
 - name: Construct the silent-install file
   template:
     src: 'silent-install.conf.j2'

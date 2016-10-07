@@ -80,10 +80,10 @@ def main():
 
     inventory_hostname = module.params['inventory_hostname']
     hostvars = module.params['hostvars']
-    hostvars = hostvars.decode('base64')
-    # hostvars = ast.literal_eval(hostvars)
     with open('hostvars.json','w') as hostvars_file:
         hostvars_file.write(hostvars)
+    # hostvars = hostvars.decode('base64')
+    # hostvars = ast.literal_eval(hostvars)
 
     hostvars = json.dumps(hostvars)
     hostvars = json.loads(hostvars)
@@ -98,7 +98,7 @@ def main():
                     cassandra_hosts=cass_hosts
             )
     )
-
+# 936-697-0390
 
 if __name__ == '__main__':
     main()

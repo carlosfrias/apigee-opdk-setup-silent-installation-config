@@ -83,7 +83,7 @@ def main():
     with open('hostvars.json','w') as hostvars_file:
         hostvars_file.write(hostvars)
     # hostvars = hostvars.decode('base64')
-    # hostvars = ast.literal_eval(hostvars)
+    hostvars = ast.literal_eval(hostvars)
 
     hostvars = json.dumps(hostvars)
     hostvars = json.loads(hostvars)

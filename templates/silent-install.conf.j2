@@ -15,7 +15,7 @@ LDAP_SID=2
 LDAP_PEER={{ hostvars[groups['dc-1-ldap'][0]][interface_name].ipv4.address  }}
 {% endif %}
 {% endif %}
-APIGEE_LDAPPW="{{ opdk_ldap_pass }}"
+APIGEE_LDAPPW={{ opdk_ldap_pass }}
 ENABLE_AX={{ opdk_enable_ax }}
 MP_POD={{ opdk_mp_pod }}
 {% if groups['dc-1'] is defined and inventory_hostname in groups['dc-1'] %}

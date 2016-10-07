@@ -11,8 +11,8 @@ LEAD_GROUP = 'lead_group'
 
 def build_cass_hosts_config(inventory_hostname, hostvars):
     cassandra_groups = extract_cassandra_groups(hostvars[inventory_hostname], hostvars)
-    configured_cassandra_racks = configure_cassandra_racks(cassandra_groups, hostvars, inventory_hostname)
-    cassandra_lead_found = determine_lead_group(configured_cassandra_racks,inventory_hostname, hostvars[inventory_hostname][GROUPS])
+    configured_cassandra_racks = configure_cassandra_racks(cassandra_groups)
+    cassandra_lead_found = determine_lead_group(configured_cassandra_racks, inventory_hostname, hostvars[inventory_hostname][GROUPS])
     prioritized_groups = prioritize_cassandra_groups(cassandra_lead_found)
     return ' '.join(prioritized_groups)
 

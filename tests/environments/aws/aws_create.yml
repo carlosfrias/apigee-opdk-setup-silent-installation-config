@@ -18,5 +18,5 @@
     include_vars: "profiles/{{ provision_profile }}.yml"
 
   roles:
-  - opdk-setup-default-settings
+  - apigee-opdk-setup-default-settings
   - aws-create

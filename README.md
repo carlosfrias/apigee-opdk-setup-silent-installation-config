@@ -13,7 +13,7 @@ separately. It is assumed that files containing credentials are stored in the ~/
 Role Variables
 --------------
 
-Variable defaults are managed in the role opdk-setup-default-settings. 
+Variable defaults are managed in the role apigee-opdk-setup-default-settings. 
 
 Apigee silent installation configuration file
 
@@ -38,14 +38,14 @@ Dependencies
 
 This role depends on the following roles:
 
-* opdk-setup-default-settings
+* apigee-opdk-setup-default-settings
  
 Example Playbook
 ----------------
 
     - hosts: servers
       roles:
-         - { role: opdk-setup-silent-installation-config }
+         - { role: apigee-opdk-setup-silent-installation-config }
 
 License
 -------

@@ -27,10 +27,7 @@ def extract_cassandra_groups(inventory_vars, hostvars):
     for cassandra_group_name in cassandra_groups:
         cassandra_ip_mappings[cassandra_group_name] = {}
         for ds_ip in cassandra_groups[cassandra_group_name]:
-            # try:
             private_ip = hostvars[ds_ip][LOCAL_ADDRESS]
-            # except:
-            #     private_ip = hostvars[ds_ip]['ansible_eth0']['ipv4']['address']
 
             cassandra_ip_mappings[cassandra_group_name][ds_ip] = { 'private_ip': private_ip }
     return cassandra_ip_mappings

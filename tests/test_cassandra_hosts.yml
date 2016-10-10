@@ -1,8 +1,16 @@
 ---
 - hosts: planet
-  remote_user: root
+  become: yes
+  vars:
+    opdk_cass_password: 'test'
+    opdk_ldap_pass: 'test'
+    opdk_cass_username: 'test'
+    opdk_user_name: 'apigee'
+    opdk_group_name: 'apigee'
   roles:
-    - apigee-opdk-setup-default-settings
+  - apigee-opdk-setup-default-settings
+  - apigee-opdk-silent-installation-config
+
   tasks:
   - name: Configure cassandra hosts
     ignore_errors: yes
@@ -10,10 +18,9 @@
       inventory_hostname: '{{ inventory_hostname }}'
       hostvars: '{{ hostvars }}'
 
-  - name: get debug file
-    become: yes
-    fetch:
-      src: hostvars.json
-      dest: hostvars
-
   - debug: var=cassandra_hosts
+
+  - name: Fetch copy of silent-install file
+    fetch:
+      src: '/tmp/silent-install.conf'
+      dest: downloads

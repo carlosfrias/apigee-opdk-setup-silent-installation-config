@@ -1,0 +1,27 @@
+---
+- name: Fail if cassandra user name is not provided
+  fail:
+    msg: 'cassandra user name is required, please provide cassandra user name'
+  when: opdk_cass_username is not defined or opdk_cass_username == ""
+
+- name: Fail if cassandra user password is not provided
+  fail:
+    msg: 'cassandra user password is required, please provide cassandra user password'
+  when: opdk_cass_password is not defined or opdk_cass_password == ""
+
+- name: Fail if ds group is not provided
+  fail:
+    msg: 'ds group is not defined in the inventory file, please define the ds group in the inventory file'
+  when: groups['ds'] is not defined
+
+- name: Construct cassandra hosts configuration
+  cassandra_hosts:
+    inventory_hostname: '{{ inventory_hostname }}'
+    hostvars: '{{ hostvars }}'
+  when: provided_response_file is not defined or not provided_response_file
+
+#- name: Construct cassandra hosts configuration
+#  cassandra_hosts:
+#    inventory_hostname: '{{ inventory_hostname }}'
+#    hostvars: "{{ hostvars.__repr__().encode('base64') }}"
+#  when: provided_response_file is not defined or not prov  ided_response_file

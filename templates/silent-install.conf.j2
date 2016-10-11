@@ -4,6 +4,7 @@ ADMIN_EMAIL={{ opdk_user_email }}
 APIGEE_ADMINPW={{ opdk_user_pass }}
 LICENSE_FILE={{ opdk_license_target_file_path }}
 USE_LDAP_REMOTE_HOST={{ opdk_ldap_remote_host }}
+
 LDAP_TYPE={{ opdk_ldap_type }}
 {% if opdk_ldap_type == '2' %}
 {% if groups['dc-1-ldap'] is defined and groups['dc-2-ldap'] is defined and inventory_hostname in groups['dc-1'] %}
@@ -16,15 +17,19 @@ LDAP_PEER={{ hostvars[groups['dc-1-ldap'][0]][interface_name].ipv4.address  }}
 {% endif %}
 {% endif %}
 APIGEE_LDAPPW={{ opdk_ldap_pass }}
+
 ENABLE_AX={{ opdk_enable_ax }}
 MP_POD={{ opdk_mp_pod }}
+
 {% if groups['dc-1'] is defined and inventory_hostname in groups['dc-1'] %}
 REGION=dc-1
 {% elif groups['dc-2'] is defined and inventory_hostname in groups['dc-2'] %}
 REGION=dc-2
 {% endif %}
+
 USE_ZK_CLUSTER={{ opdk_use_zk_cluster }}
 ZK_HOSTS="{% for host in groups['ds'] %}{{ hostvars[host][interface_name].ipv4.address }}{% if hostvars[host]['zk_observer'] is defined and hostvars[host]['zk_observer'] %}:observer{% endif %}{% if not loop.last %} {% endif %}{% endfor %}"
+
 {% if groups['dc-1'] is defined and inventory_hostname in groups['dc-1'] %}
 ZK_CLIENT_HOSTS="{% for host in groups['dc-1-ds'] %}{{ hostvars[host][interface_name].ipv4.address }}{% if not loop.last %} {% endif %}{% endfor %}"
 {% elif groups['dc-2'] is defined and inventory_hostname in groups['dc-2']%}
@@ -32,6 +37,7 @@ ZK_CLIENT_HOSTS="{% for host in groups['dc-2-ds'] %}{{ hostvars[host][interface_
 {% else %}
 ZK_CLIENT_HOSTS="{% for host in groups['ds'] %}{{ hostvars[host][interface_name].ipv4.address }}{% if not loop.last %} {% endif %}{% endfor %}"
 {% endif %}
+
 USE_CASS_CLUSTER={{ opdk_use_cass_cluster }}
 CASS_HOSTS="{{ cassandra_hosts }}"
 CASS_USERNAME={{ opdk_cass_username }}
@@ -46,12 +52,9 @@ SMTPSSL={{ opdk_smtp_ssl }}
 {% endif %}
 BIND_ON_ALL_INTERFACES={{ opdk_bind_on_all_interfaces }}
 
-{% if groups['dc-2-pgmaster'] is defined and groups['dc-2-pgstandby'] is defined and inventory_hostname in groups['dc-2'] %}
-PG_MASTER={{ hostvars[groups['dc-2-pgmaster'][0]][interface_name].ipv4.address }}
-PG_STANDBY={{ hostvars[groups['dc-2-pgstandby'][0]][interface_name].ipv4.address }}
-{% elif groups['dc-1-pgmaster'] is defined and groups['dc-1-pgstandby'] is defined  %}
-PG_MASTER={{ hostvars[groups['dc-1-pgmaster'][0]][interface_name].ipv4.address }}
-PG_STANDBY={{ hostvars[groups['dc-1-pgstandby'][0]][interface_name].ipv4.address }}
+{% if pgmaster_ip is defined and pgstandby_ip is defined %}
+PG_MASTER={{ pgmaster_ip }}
+PG_STANDBY={{ pgstandby_ip }}
 {% endif %}
 
 {% if opdk_monetization is defined and opdk_monetization %}

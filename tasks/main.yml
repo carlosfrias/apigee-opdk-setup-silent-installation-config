@@ -37,6 +37,8 @@
 #    hostvars: "{{ hostvars.__repr__().encode('base64') }}"
 #  when: provided_response_file is not defined or not provided_response_file
 
+- include: pg_master_standby.yml
+
 - name: Construct the silent-install file
   template:
     src: 'silent-install.conf.j2'

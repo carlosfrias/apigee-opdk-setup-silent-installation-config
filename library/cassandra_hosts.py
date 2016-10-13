@@ -1,7 +1,7 @@
 from ansible.module_utils.basic import *
 import ast
 import json
-
+import future_builtins
 
 GROUPS = 'groups'
 PUBLIC_ADDRESS = 'public_address'
@@ -86,12 +86,13 @@ def main():
         hostvars_file.write(hostvars)
     # hostvars = hostvars.decode('base64')
     try:
+        hostvars = future_builtins.ascii(hostvars)
         hostvars = ast.literal_eval(hostvars)
         hostvars = json.dumps(hostvars)
         with open('hostvars_dumps.json') as hostvars_file:
             hostvars_file.write(hostvars)
         hostvars = json.loads(hostvars)
-    except (TypeError, ValueError) as e:
+    except (TypeError, ValueError, SyntaxError) as e:
         msg = str(e.lineno) + " " + str(e.msg)
         module.fail_json(
             changed=False,

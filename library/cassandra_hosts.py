@@ -86,7 +86,7 @@ def main():
         hostvars_file.write(hostvars)
     # hostvars = hostvars.decode('base64')
     try:
-        hostvars = future_builtins.ascii(hostvars)
+        hostvars = hostvars.encode('utf-8')
         hostvars = ast.literal_eval(hostvars)
         hostvars = json.dumps(hostvars)
         with open('hostvars_dumps.json', 'w') as hostvars_file:
@@ -98,6 +98,7 @@ def main():
             changed=False,
             msg=msg,
         )
+        return
 
     try:
         cass_hosts = build_cass_hosts_config(inventory_hostname, hostvars)
@@ -109,6 +110,7 @@ def main():
             changed=False,
             msg=msg,
         )
+        return
 
     module.exit_json(
             changed=True,

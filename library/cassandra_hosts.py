@@ -85,10 +85,10 @@ def main():
     try:
         hostvars = ast.literal_eval(hostvars)
         hostvars = json.dumps(hostvars)
-        with open('hostvars_dumps.jso
+        with open('hostvars_dumps.json') as hostvars_file:
+            hostvars_file.write(hostvars)
         hostvars = json.loads(hostvars)
-    except (TypeError, ValueError, SyntaxError) as n','w') as hostvars_file:
-    hostvars_file.write(hostvars)e:
+    except (TypeError, ValueError, SyntaxError) as e:
         module.fail_json(
             changed=False,
             msg=str(e),

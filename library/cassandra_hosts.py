@@ -98,7 +98,6 @@ def main():
             changed=False,
             msg=msg,
         )
-        raise
 
     try:
         cass_hosts = build_cass_hosts_config(inventory_hostname, hostvars)
@@ -110,7 +109,6 @@ def main():
             changed=False,
             msg=msg,
         )
-        raise
 
     module.exit_json(
             changed=True,

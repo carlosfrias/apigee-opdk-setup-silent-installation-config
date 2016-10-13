@@ -1,6 +1,7 @@
 from ansible.module_utils.basic import *
 import ast
 import json
+import sys
 
 GROUPS = 'groups'
 PUBLIC_ADDRESS = 'public_address'
@@ -83,13 +84,12 @@ def main():
     # hostvars = hostvars.decode('base64')
     try:
         hostvars = ast.literal_eval(hostvars)
-
         hostvars = json.dumps(hostvars)
         hostvars = json.loads(hostvars)
     except:
         module.fail_json(
             changed=False,
-            msg='hostvars failed to load',
+            msg=sys.stderr,
         )
 
     cass_hosts = build_cass_hosts_config(inventory_hostname, hostvars)

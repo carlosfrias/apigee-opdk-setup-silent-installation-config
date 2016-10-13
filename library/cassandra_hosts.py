@@ -84,16 +84,24 @@ def main():
     hostvars = module.params['hostvars']
     with open('hostvars_raw.json', 'w') as hostvars_file:
         hostvars_file.write(hostvars)
+
     # hostvars = hostvars.decode('base64')
     try:
         hostvars = ast.literal_eval(hostvars)
     except SyntaxError as e:
-        msg = "ast.literal_eval conversion failed on line {0} with {1}".format(e.lineno, e.msg)
-        module.fail_json(
-            changed=False,
-            msg=msg,
-        )
-        return
+        hostvars_chrs = []
+        for uni_char in hostvars:
+            hostvars_chrs.append(str(uni_char))
+        hostvars = "".join(hostvars_chrs)
+        try:
+            hostvars = ast.literal_eval(hostvars)
+        except SyntaxError as e:
+            msg = "ast.literal_eval conversion failed on line {0} with {1}".format(e.lineno, e.msg)
+            module.fail_json(
+                changed=False,
+                msg=msg,
+            )
+            return
 
     hostvars = json.dumps(hostvars)
     with open('hostvars_dumps.json', 'w') as hostvars_file:

@@ -92,6 +92,7 @@ def main():
         hostvars = hostvars.replace('{u', '{')
         hostvars = hostvars.replace(", u'", ", '")
         hostvars = hostvars.replace(": u'", ": '")
+        hostvars = hostvars.replace("[u'", "['")
         with open('hostvars_replace.json', 'w') as file:
             file.write(hostvars)
         try:

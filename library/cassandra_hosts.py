@@ -102,7 +102,7 @@ def main():
     except SyntaxError as e:
         module.fail_json(
             changed=False,
-            msg=str(e.stderr),
+            msg=str(e),
         )
         raise
 

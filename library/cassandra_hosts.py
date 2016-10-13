@@ -85,25 +85,35 @@ def main():
     with open('hostvars_raw.json', 'w') as hostvars_file:
         hostvars_file.write(hostvars)
     # hostvars = hostvars.decode('base64')
-    hostvars = hostvars.decode('utf-8')
     try:
         hostvars = ast.literal_eval(hostvars)
-        hostvars = json.dumps(hostvars)
-        with open('hostvars_dumps.json', 'w') as hostvars_file:
-            hostvars_file.write(hostvars)
-        hostvars = json.loads(hostvars)
-    except (TypeError, ValueError, SyntaxError) as e:
-        msg = "hostvars conversion failed: " + str(e.lineno) + " " + str(e.msg) + " text:" + str(e.text)
+    except SyntaxError as e:
+        msg = "ast.literal_eval conversion failed: {} {}".format(e.lineno, e.msg)
         module.fail_json(
             changed=False,
             msg=msg,
         )
         return
 
+    hostvars = json.dumps(hostvars)
+    with open('hostvars_dumps.json', 'w') as hostvars_file:
+        hostvars_file.write(hostvars)
+
+    try:
+        hostvars = json.loads(hostvars)
+    except SyntaxError as e:
+        msg = "json.loads conversion failed: {} {}".format(e.lineno, e.msg)
+        module.fail_json(
+            changed=False,
+            msg=msg,
+        )
+        return
+
+
     try:
         cass_hosts = build_cass_hosts_config(inventory_hostname, hostvars)
     except SyntaxError as e:
-        msg = "build_cass_hosts_config failed: " + str(e.lineno) + " " + str(e.msg)
+        msg = "build_cass_hosts_config failed: {} {}".format(e.lineno, e.msg)
         module.fail_json(
             changed=False,
             msg=msg,

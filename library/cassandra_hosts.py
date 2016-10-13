@@ -91,7 +91,7 @@ def main():
     except (TypeError, ValueError, SyntaxError) as e:
         module.fail_json(
             changed=False,
-            msg=str(e),
+            msg=str(e.message),
         )
         raise
 

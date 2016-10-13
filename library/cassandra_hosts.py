@@ -93,7 +93,7 @@ def main():
             hostvars_file.write(hostvars)
         hostvars = json.loads(hostvars)
     except (TypeError, ValueError, SyntaxError) as e:
-        msg = str(e.lineno) + " " + str(e.msg)
+        msg = str(e.lineno) + " " + str(e.msg) + " text:" + str(e.print_file_and_line)
         module.fail_json(
             changed=False,
             msg=msg,

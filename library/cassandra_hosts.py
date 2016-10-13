@@ -93,7 +93,7 @@ def main():
         hostvars = hostvars.replace(", u'", ", '")
         hostvars = hostvars.replace(": u'", ": '")
         hostvars = hostvars.replace("[u'", "['")
-        hostvars = hostvars.replace("{\\'", "'")
+        hostvars = hostvars.replace("'", "\"")
         with open('hostvars_raw.json', 'w') as file:
             file.write(hostvars)
 

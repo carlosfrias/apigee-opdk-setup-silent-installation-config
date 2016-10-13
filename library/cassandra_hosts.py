@@ -89,7 +89,7 @@ def main():
     try:
         hostvars = ast.literal_eval(hostvars)
     except SyntaxError as e:
-        hostvars = hostvars.repl('{u', '{')
+        hostvars = hostvars.replace('{u', '{')
         hostvars = hostvars.replace(", u'", ", '")
         hostvars = hostvars.replace(": u'", ": '")
         try:

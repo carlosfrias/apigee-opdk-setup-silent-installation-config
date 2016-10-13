@@ -81,10 +81,16 @@ def main():
     with open('hostvars.json','w') as hostvars_file:
         hostvars_file.write(hostvars)
     # hostvars = hostvars.decode('base64')
-    hostvars = ast.literal_eval(hostvars)
+    try:
+        hostvars = ast.literal_eval(hostvars)
 
-    hostvars = json.dumps(hostvars)
-    hostvars = json.loads(hostvars)
+        hostvars = json.dumps(hostvars)
+        hostvars = json.loads(hostvars)
+    except:
+        module.fail_json(
+            changed=False,
+            msg='hostvars failed to load',
+        )
 
     cass_hosts = build_cass_hosts_config(inventory_hostname, hostvars)
     cass_hosts = json.dumps(cass_hosts)

@@ -79,18 +79,22 @@ def main():
 
     inventory_hostname = module.params['inventory_hostname']
     hostvars = module.params['hostvars']
-    with open('hostvars.json','w') as hostvars_file:
+    with open('hostvars_raw.json','w') as hostvars_file:
         hostvars_file.write(hostvars)
     # hostvars = hostvars.decode('base64')
     try:
         hostvars = ast.literal_eval(hostvars)
         hostvars = json.dumps(hostvars)
+        with open('hostvars_dumps.json','w') as hostvars_file:
+            hostvars_file.write(hostvars)
         hostvars = json.loads(hostvars)
     except:
+        print("Failed to convert hostvars to json")
         module.fail_json(
             changed=False,
             msg=sys.stderr,
         )
+        raise
 
     cass_hosts = build_cass_hosts_config(inventory_hostname, hostvars)
     cass_hosts = json.dumps(cass_hosts)

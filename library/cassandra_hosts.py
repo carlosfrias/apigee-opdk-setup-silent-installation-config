@@ -85,8 +85,8 @@ def main():
     try:
         hostvars = ast.literal_eval(hostvars)
         hostvars = json.dumps(hostvars)
-        with open('hostvars_dumps.json','w') as hostvars_file:
-            hostvars_file.write(hostvars)
+        # with open('hostvars_dumps.json','w') as hostvars_file:
+        #     hostvars_file.write(hostvars)
         hostvars = json.loads(hostvars)
     except:
         module.fail_json(

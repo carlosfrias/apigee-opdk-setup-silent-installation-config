@@ -14,10 +14,17 @@
     msg: 'ds group is not defined in the inventory file, please define the ds group in the inventory file'
   when: groups['ds'] is not defined
 
+- name: Capture hostvars
+  set_fact:
+    hostvars_json: '{{ hostvars }}'
+
+#- debug: var=hostvars_json
+#- pause:
+
 - name: Construct cassandra hosts configuration
   cassandra_hosts:
     inventory_hostname: '{{ inventory_hostname }}'
-    hostvars: '{{ hostvars }}'
+    hostvars: '{{ hostvars_json }}'
   when: provided_response_file is not defined or not provided_response_file
 
 #- name: Construct cassandra hosts configuration

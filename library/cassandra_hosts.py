@@ -90,7 +90,7 @@ def main():
         with open('hostvars_dumps.json') as hostvars_file:
             hostvars_file.write(hostvars)
         hostvars = json.loads(hostvars)
-    except (TypeError, ValueError, SyntaxError) as e:
+    except (TypeError, ValueError) as e:
         module.fail_json(
             changed=False,
             msg=repr(e),

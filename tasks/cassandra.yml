@@ -16,7 +16,7 @@
 
 - name: Capture hostvars
   set_fact:
-    hostvars_json: '{{ hostvars }}'
+    hostvars_json: '{{ hostvars | to_json }}'
 
 #- debug: var=hostvars_json
 #- pause:

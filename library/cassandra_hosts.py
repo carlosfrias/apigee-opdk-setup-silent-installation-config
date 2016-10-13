@@ -78,7 +78,6 @@ def main():
 
     inventory_hostname = module.params['inventory_hostname']
     hostvars = module.params['hostvars']
-    print('Data type of hostvars: ' + str(type(hostvars)))
     with open('hostvars.json','w') as hostvars_file:
         hostvars_file.write(hostvars)
     # hostvars = hostvars.decode('base64')

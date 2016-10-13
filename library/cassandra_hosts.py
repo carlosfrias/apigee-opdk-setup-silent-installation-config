@@ -88,7 +88,7 @@ def main():
     try:
         hostvars = ast.literal_eval(hostvars)
     except SyntaxError as e:
-        msg = "ast.literal_eval conversion failed: {} {}".format(e.lineno, e.msg)
+        msg = "ast.literal_eval conversion failed: " % e.lineno % e.msg
         module.fail_json(
             changed=False,
             msg=msg,

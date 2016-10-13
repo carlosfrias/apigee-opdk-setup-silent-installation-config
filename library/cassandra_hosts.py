@@ -88,7 +88,7 @@ def main():
     try:
         hostvars = ast.literal_eval(hostvars)
     except SyntaxError as e:
-        msg = "ast.literal_eval conversion failed: {0} {1}".format(e.lineno, e.msg)
+        msg = "ast.literal_eval conversion failed on line {0} with {1}".format(e.lineno, e.msg)
         module.fail_json(
             changed=False,
             msg=msg,
@@ -113,7 +113,7 @@ def main():
     try:
         cass_hosts = build_cass_hosts_config(inventory_hostname, hostvars)
     except SyntaxError as e:
-        msg = "build_cass_hosts_config failed: {0} {1}".format(e.lineno, e.msg)
+        msg = "build_cass_hosts_config failed on line {0} with {1}".format(e.lineno, e.msg)
         module.fail_json(
             changed=False,
             msg=msg,

@@ -1,7 +1,6 @@
 from ansible.module_utils.basic import *
 import ast
 import json
-import sys
 
 GROUPS = 'groups'
 PUBLIC_ADDRESS = 'public_address'
@@ -13,7 +12,9 @@ LEAD_GROUP = 'lead_group'
 def build_cass_hosts_config(inventory_hostname, hostvars):
     cassandra_groups = extract_cassandra_groups(hostvars[inventory_hostname], hostvars)
     configured_cassandra_racks = configure_cassandra_racks(cassandra_groups)
-    cassandra_lead_found = determine_lead_group(configured_cassandra_racks, inventory_hostname, hostvars[inventory_hostname][GROUPS])
+    cassandra_lead_found = determine_lead_group(configured_cassandra_racks,
+                                                inventory_hostname,
+                                                hostvars[inventory_hostname][GROUPS])
     prioritized_groups = prioritize_cassandra_groups(cassandra_lead_found)
     return ' '.join(prioritized_groups)
 
@@ -31,7 +32,8 @@ def extract_cassandra_groups(inventory_vars, hostvars):
             hostvar = hostvars[ds_ip]
             private_ip = hostvar[LOCAL_ADDRESS]
 
-            cassandra_ip_mappings[cassandra_group_name][ds_ip] = { 'private_ip': private_ip }
+            cassandra_ip_map = cassandra_ip_mappings[cassandra_group_name]
+            cassandra_ip_map[ds_ip] = { 'private_ip': private_ip }
     return cassandra_ip_mappings
 
 
@@ -91,7 +93,7 @@ def main():
     except (TypeError, ValueError, SyntaxError) as e:
         module.fail_json(
             changed=False,
-            msg=str(e),
+            msg=repr(e),
         )
         raise
 
@@ -102,7 +104,7 @@ def main():
     except SyntaxError as e:
         module.fail_json(
             changed=False,
-            msg=str(e),
+            msg=repr(e),
         )
         raise
 

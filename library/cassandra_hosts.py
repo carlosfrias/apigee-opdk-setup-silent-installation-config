@@ -89,16 +89,22 @@ def main():
             hostvars_file.write(hostvars)
         hostvars = json.loads(hostvars)
     except:
-        print("Failed to convert hostvars to json")
         module.fail_json(
             changed=False,
             msg=sys.stderr,
         )
         raise
 
-    cass_hosts = build_cass_hosts_config(inventory_hostname, hostvars)
-    cass_hosts = json.dumps(cass_hosts)
-    cass_hosts = json.loads(cass_hosts)
+    try:
+        cass_hosts = build_cass_hosts_config(inventory_hostname, hostvars)
+        cass_hosts = json.dumps(cass_hosts)
+        cass_hosts = json.loads(cass_hosts)
+    except:
+        module.fail_json(
+            changed=False,
+            msg=sys.stderr,
+        )
+        raise
 
     module.exit_json(
             changed=True,

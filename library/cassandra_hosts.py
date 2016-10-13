@@ -27,7 +27,8 @@ def extract_cassandra_groups(inventory_vars, hostvars):
     for cassandra_group_name in cassandra_groups:
         cassandra_ip_mappings[cassandra_group_name] = {}
         for ds_ip in cassandra_groups[cassandra_group_name]:
-            private_ip = hostvars[ds_ip][LOCAL_ADDRESS]
+            hostvar = hostvars[ds_ip]
+            private_ip = hostvar[LOCAL_ADDRESS]
 
             cassandra_ip_mappings[cassandra_group_name][ds_ip] = { 'private_ip': private_ip }
     return cassandra_ip_mappings
@@ -77,7 +78,7 @@ def main():
 
     inventory_hostname = module.params['inventory_hostname']
     hostvars = module.params['hostvars']
-    # print('Data type of hostvars: ' + type(hostvars))
+    print('Data type of hostvars: ' + str(type(hostvars)))
     with open('hostvars.json','w') as hostvars_file:
         hostvars_file.write(hostvars)
     # hostvars = hostvars.decode('base64')

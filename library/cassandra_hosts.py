@@ -2,6 +2,7 @@ from ansible.module_utils.basic import *
 import ast
 import json
 
+
 GROUPS = 'groups'
 PUBLIC_ADDRESS = 'public_address'
 RACK = "rack"
@@ -81,7 +82,7 @@ def main():
 
     inventory_hostname = module.params['inventory_hostname']
     hostvars = module.params['hostvars']
-    with open('hostvars_raw.json','w') as hostvars_file:
+    with open('hostvars_raw.json', 'w') as hostvars_file:
         hostvars_file.write(hostvars)
     # hostvars = hostvars.decode('base64')
     try:
@@ -91,9 +92,10 @@ def main():
             hostvars_file.write(hostvars)
         hostvars = json.loads(hostvars)
     except (TypeError, ValueError) as e:
+        msg = str(e.lineno) + " " + str(e.msg)
         module.fail_json(
             changed=False,
-            msg=repr(e),
+            msg=msg,
         )
         raise
 
@@ -102,9 +104,10 @@ def main():
         cass_hosts = json.dumps(cass_hosts)
         cass_hosts = json.loads(cass_hosts)
     except SyntaxError as e:
+        msg = str(e.lineno) + " " + str(e.msg)
         module.fail_json(
             changed=False,
-            msg=repr(e),
+            msg=msg,
         )
         raise
 

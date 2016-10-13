@@ -85,10 +85,10 @@ def main():
     try:
         hostvars = ast.literal_eval(hostvars)
         hostvars = json.dumps(hostvars)
-        # with open('hostvars_dumps.json','w') as hostvars_file:
-        #     hostvars_file.write(hostvars)
+        with open('hostvars_dumps.jso
         hostvars = json.loads(hostvars)
-    except (TypeError, ValueError, SyntaxError) as e:
+    except (TypeError, ValueError, SyntaxError) as n','w') as hostvars_file:
+    hostvars_file.write(hostvars)e:
         module.fail_json(
             changed=False,
             msg=str(e),
@@ -99,10 +99,10 @@ def main():
         cass_hosts = build_cass_hosts_config(inventory_hostname, hostvars)
         cass_hosts = json.dumps(cass_hosts)
         cass_hosts = json.loads(cass_hosts)
-    except:
+    except SyntaxError as e:
         module.fail_json(
             changed=False,
-            msg=sys.stderr,
+            msg=str(e.stderr),
         )
         raise
 

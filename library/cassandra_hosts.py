@@ -89,7 +89,7 @@ def main():
         hostvars = future_builtins.ascii(hostvars)
         hostvars = ast.literal_eval(hostvars)
         hostvars = json.dumps(hostvars)
-        with open('hostvars_dumps.json') as hostvars_file:
+        with open('hostvars_dumps.json', 'w') as hostvars_file:
             hostvars_file.write(hostvars)
         hostvars = json.loads(hostvars)
     except (TypeError, ValueError, SyntaxError) as e:

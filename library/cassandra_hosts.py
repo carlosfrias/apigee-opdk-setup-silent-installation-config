@@ -82,8 +82,8 @@ def main():
 
     inventory_hostname = module.params['inventory_hostname']
     hostvars = module.params['hostvars']
-    with open('hostvars_raw.json', 'w') as hostvars_file:
-        hostvars_file.write(hostvars)
+    # with open('hostvars_raw.json', 'w') as hostvars_file:
+    #     hostvars_file.write(hostvars)
 
     # hostvars = hostvars.decode('base64')
     try:
@@ -94,8 +94,9 @@ def main():
         hostvars = hostvars.replace(": u'", ": '")
         hostvars = hostvars.replace("[u'", "['")
         hostvars = hostvars.replace("{\\'", "'")
-        with open('hostvars_replace.json', 'w') as file:
+        with open('hostvars_raw.json', 'w') as file:
             file.write(hostvars)
+
         try:
             hostvars = ast.literal_eval(hostvars)
         except SyntaxError as e:

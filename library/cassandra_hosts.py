@@ -94,7 +94,7 @@ def main():
         hostvars = hostvars.replace(": u'", ": '")
         hostvars = hostvars.replace("[u'", "['")
         hostvars = hostvars.replace("'", "\"")
-        with open('hostvars_raw.json', 'w') as file:
+        with open('hostvars_params.json', 'w') as file:
             file.write(hostvars)
 
         try:
@@ -107,19 +107,19 @@ def main():
             )
             return
 
-    # hostvars = json.dumps(hostvars)
-    with open('hostvars_dumps.json', 'w') as hostvars_file:
-        hostvars_file.write(hostvars)
-
-    try:
-        hostvars = json.loads(hostvars)
-    except SyntaxError as e:
-        msg = "json.loads conversion failed: {0} {1}".format(e.lineno, e.msg)
-        module.fail_json(
-            changed=False,
-            msg=msg,
-        )
-        return
+    hostvars = json.dumps(hostvars)
+    # with open('hostvars_dumps.json', 'w') as hostvars_file:
+    #     hostvars_file.write(hostvars)
+    #
+    # try:
+    #     hostvars = json.loads(hostvars)
+    # except SyntaxError as e:
+    #     msg = "json.loads conversion failed: {0} {1}".format(e.lineno, e.msg)
+    #     module.fail_json(
+    #         changed=False,
+    #         msg=msg,
+    #     )
+    #     return
 
 
     try:

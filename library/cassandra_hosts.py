@@ -107,7 +107,7 @@ def main():
     #         )
     #         return
 
-    hostvars = json.dumps(hostvars)
+    # hostvars = json.dumps(hostvars)
     with open('hostvars_dumps.json', 'w') as hostvars_file:
         hostvars_file.write(hostvars)
 

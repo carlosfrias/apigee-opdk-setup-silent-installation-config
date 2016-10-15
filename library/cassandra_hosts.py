@@ -7,6 +7,7 @@ GROUPS = 'groups'
 PUBLIC_ADDRESS = 'public_address'
 RACK = "rack"
 LOCAL_ADDRESS = 'local_address'
+NOT_DEFINED = 'NOT DEFINED'
 LEAD_GROUP = 'lead_group'
 
 
@@ -31,7 +32,11 @@ def extract_cassandra_groups(inventory_vars, hostvars):
         cassandra_ip_mappings[cassandra_group_name] = {}
         for ds_ip in cassandra_groups[cassandra_group_name]:
             hostvar = hostvars[ds_ip]
-            private_ip = hostvar[LOCAL_ADDRESS]
+            try:
+                private_ip = hostvar[LOCAL_ADDRESS]
+            except KeyError as e:
+                hostvar[LOCAL_ADDRESS] = "{0}: {1}".format(NOT_DEFINED, e)
+                private_ip = hostvar[LOCAL_ADDRESS]
 
             cassandra_ip_map = cassandra_ip_mappings[cassandra_group_name]
             cassandra_ip_map[ds_ip] = { 'private_ip': private_ip }

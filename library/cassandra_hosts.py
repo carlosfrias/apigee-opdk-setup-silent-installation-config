@@ -37,18 +37,6 @@ def extract_cassandra_groups(inventory_vars, hostvars):
                     private_ip = hostvar[LOCAL_ADDRESS]
                 else:
                     private_ip = NOT_DEFINED
-
-            # try:
-            #     hostvar = hostvars[ds_ip]
-            # except KeyError as e:
-            #     hostvar[ds_ip] = '{0}: {1}'.format(NOT_DEFINED, e)
-
-            # try:
-            #     private_ip = hostvar[LOCAL_ADDRESS]
-            # except KeyError as e:
-            #     hostvar[LOCAL_ADDRESS] = "{0}: {1}".format(NOT_DEFINED, e)
-            #     private_ip = hostvar[LOCAL_ADDRESS]
-
             cassandra_ip_map = cassandra_ip_mappings[cassandra_group_name]
             cassandra_ip_map[ds_ip] = { 'private_ip': private_ip }
     return cassandra_ip_mappings

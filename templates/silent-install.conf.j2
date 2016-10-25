@@ -28,7 +28,7 @@ REGION=dc-2
 {% endif %}
 
 USE_ZK_CLUSTER={{ opdk_use_zk_cluster }}
-ZK_HOSTS="{% for host in groups['ds'] %}{{ hostvars[host][interface_name].ipv4.address }}{% if hostvars[host]['zk_observer'] is defined and hostvars[host]['zk_observer'] %}:observer{% endif %}{% if not loop.last %} {% endif %}{% endfor %}"
+ZK_HOSTS="{% for host in groups['ds'] %}{{ hostvars[host][interface_name].ipv4.address }}{% if hostvars[host]['zk_observer'] is defined and hostvars[host]['zk_observer'] == 'true' %}:observer{% endif %}{% if not loop.last %} {% endif %}{% endfor %}"
 
 {% if groups['dc-1'] is defined and inventory_hostname in groups['dc-1'] %}
 ZK_CLIENT_HOSTS="{% for host in groups['dc-1-ds'] %}{{ hostvars[host][interface_name].ipv4.address }}{% if not loop.last %} {% endif %}{% endfor %}"

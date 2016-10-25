@@ -24,6 +24,8 @@
     group: '{{ opdk_group_name }}'
     mode: 0644
   when: provided_response_file is not defined or not provided_response_file
+  tags:
+  - no-silent-install
 
 - name: Copy provided silent-install file
   copy:
@@ -33,3 +35,5 @@
     group: '{{ opdk_group_name }}'
     mode: 0644
   when: provided_response_file is defined and provided_response_file
+  tags:
+  - no-silent-install

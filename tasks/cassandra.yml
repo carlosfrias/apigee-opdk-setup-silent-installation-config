@@ -19,18 +19,13 @@
     msg: 'dc-1-ds group is not defined in the inventory file, please define the dc-1-ds group in the inventory file'
   when: groups['dc-1-ds'] is not defined
 
-#- name: Capture hostvars
-#  set_fact:
-#    hostvars_json: '{{ hostvars }}'
+- name: Fail if dc-1-ms group is not provided
+  fail:
+    msg: 'dc-1-ms group is not defined in the inventory file, please define the dc-1-ms group in the inventory file'
+  when: groups['dc-1-ms'] is not defined
 
 - name: Construct cassandra hosts configuration
   cassandra_hosts:
     inventory_hostname: '{{ inventory_hostname }}'
     hostvars: '{{ hostvars }}'
   when: provided_response_file is not defined or not provided_response_file
-
-#- name: Construct cassandra hosts configuration
-#  cassandra_hosts:
-#    inventory_hostname: '{{ inventory_hostname }}'
-#    hostvars: "{{ hostvars.__repr__().encode('base64') }}"
-#  when: provided_response_file is not defined or not prov  ided_response_file

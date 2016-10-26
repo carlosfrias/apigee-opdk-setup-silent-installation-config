@@ -14,6 +14,11 @@
     msg: 'ds group is not defined in the inventory file, please define the ds group in the inventory file'
   when: groups['ds'] is not defined
 
+- name: Fail if dc-1 group is not provided
+  fail:
+    msg: 'dc-1 group is not defined in the inventory file, please define the dc-1 group in the inventory file'
+  when: groups['dc-1'] is not defined
+
 - name: Fail if dc-1-ds group is not provided
   fail:
     msg: 'dc-1-ds group is not defined in the inventory file, please define the dc-1-ds group in the inventory file'

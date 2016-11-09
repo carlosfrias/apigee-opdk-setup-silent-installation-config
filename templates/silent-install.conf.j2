@@ -19,6 +19,8 @@ LDAP_PEER={{ hostvars[groups['dc-1-ldap'][0]][interface_name].ipv4.address  }}
 APIGEE_LDAPPW={{ opdk_ldap_pass }}
 
 ENABLE_AX={{ opdk_enable_ax }}
+# AXGroup
+AXGROUP={{ ax_group }}
 MP_POD={{ opdk_mp_pod }}
 
 {% if groups['dc-1'] is defined and inventory_hostname in groups['dc-1'] %}
@@ -75,3 +77,4 @@ QPID_PORT={{ qpid_ext_mgmt_port }}
 MX_GROUP=mxgroup
 ORG_NAME={{ org_name }}
 {% endif %}
+

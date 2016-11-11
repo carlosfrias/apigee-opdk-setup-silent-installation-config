@@ -86,7 +86,8 @@ def main():
 
     inventory_hostname = module.params['inventory_hostname']
     hostvars = module.params['hostvars']
-    with open('hostvars_params.json', 'w') as hostvars_file:
+    json_file_name = '/tmp/hostvars_params.json'
+    with open(json_file_name, 'w') as hostvars_file:
         hostvars_file.write(hostvars)
 
     # hostvars = hostvars.decode('base64')

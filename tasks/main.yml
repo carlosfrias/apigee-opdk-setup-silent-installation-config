@@ -1,6 +1,7 @@
 ---
 # tasks file for apigee-opdk-setup-silent-file
 - name: Remove the old response file
+  become: yes
   file:
     path: "{{ opdk_installation_config_file }}"
     state: absent
@@ -16,24 +17,26 @@
   when: "{{ groups['pgmaster'] is defined and groups['pgstandby'] is defined }}"
 
 - name: Construct the silent-install file
+  become: yes
   template:
     src: 'silent-install.conf.j2'
     dest: "{{ opdk_installation_config_file }}"
     force: yes
     owner: '{{ opdk_user_name }}'
     group: '{{ opdk_group_name }}'
-    mode: 0644
+    mode: 0655
   when: provided_response_file is not defined or not provided_response_file
   tags:
   - no-silent-install
 
 - name: Copy provided silent-install file
+  become: yes
   copy:
     src: "{{ provided_response_file }}"
     dest: "{{ opdk_installation_config_file }}"
     owner: '{{ opdk_user_name }}'
     group: '{{ opdk_group_name }}'
-    mode: 0644
+    mode: 0655
   when: provided_response_file is defined and provided_response_file
   tags:
   - no-silent-install

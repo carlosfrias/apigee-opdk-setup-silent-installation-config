@@ -21,15 +21,20 @@ APIGEE_LDAPPW={{ opdk_ldap_pass }}
 ENABLE_AX={{ opdk_enable_ax }}
 MP_POD={{ opdk_mp_pod }}
 
+{# TODO: Build a module that discover the region of the inventory_hostname and update the REGION #}
 {% if groups['dc-1'] is defined and inventory_hostname in groups['dc-1'] %}
 REGION=dc-1
 {% elif groups['dc-2'] is defined and inventory_hostname in groups['dc-2'] %}
 REGION=dc-2
+{% elif groups['dc-3'] is defined and inventory_hostname in groups['dc-3'] %}
+REGION=dc-3
 {% endif %}
 
 USE_ZK_CLUSTER={{ opdk_use_zk_cluster }}
+{# TODO: Build a module to construct the ZK_HOSTS value#}
 ZK_HOSTS="{% for host in groups['ds'] %}{{ hostvars[host][interface_name].ipv4.address }}{% if hostvars[host]['zk_observer'] is defined and hostvars[host]['zk_observer'] == 'true' %}:observer{% endif %}{% if not loop.last %} {% endif %}{% endfor %}"
 
+{# TODO: Build a module to construct the ZK_CLIENT_HOSTS value#}
 {% if groups['dc-1'] is defined and inventory_hostname in groups['dc-1'] %}
 ZK_CLIENT_HOSTS="{% for host in groups['dc-1-ds'] %}{{ hostvars[host][interface_name].ipv4.address }}{% if not loop.last %} {% endif %}{% endfor %}"
 {% elif groups['dc-2'] is defined and inventory_hostname in groups['dc-2']%}

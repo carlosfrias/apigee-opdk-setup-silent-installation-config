@@ -1,7 +1,6 @@
 ---
 # tasks file for apigee-opdk-setup-silent-file
 - name: Remove the old response file
-  become: yes
   file:
     path: "{{ opdk_installation_config_file }}"
     state: absent

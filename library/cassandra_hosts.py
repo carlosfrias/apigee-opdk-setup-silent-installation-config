@@ -1,7 +1,8 @@
 from ansible.module_utils.basic import *
 import ast
 import json
-import future_builtins
+import tempfile
+import os
 
 GROUPS = 'groups'
 PUBLIC_ADDRESS = 'public_address'
@@ -86,8 +87,9 @@ def main():
 
     inventory_hostname = module.params['inventory_hostname']
     hostvars = module.params['hostvars']
-    json_file_name = '/tmp/hostvars_params.json'
-    with open(json_file_name, 'w') as hostvars_file:
+    json_file = '/tmp/hostvars_params.json'
+    # json_file = tempfile.mkstemp(suffix='json', text=True)
+    with open(json_file, 'w') as hostvars_file:
         hostvars_file.write(hostvars)
 
     # hostvars = hostvars.decode('base64')
@@ -99,13 +101,16 @@ def main():
         hostvars = hostvars.replace(": u'", ": '")
         hostvars = hostvars.replace("[u'", "['")
         hostvars = hostvars.replace("'", "\"")
-        with open('hostvars_params.json', 'w') as file:
+        with open(json_file, 'w') as file:
             file.write(hostvars)
 
         try:
             hostvars = ast.literal_eval(hostvars)
         except SyntaxError as e:
             msg = "ast.literal_eval conversion failed on line {0} with {1}".format(e.lineno, e.msg)
+            msg += "This occurred due to an operating system setting. There is a way around."
+            msg += "This means that you will need re-run with --tags=apigee-silent-config to generate the silent-install.conf file."
+            msg += "Then complete the installation with --skip-tags=os-pre-req,apigee-pre-req."
             module.fail_json(
                 changed=False,
                 msg=msg,
@@ -113,7 +118,7 @@ def main():
             return
 
     hostvars = json.dumps(hostvars)
-    with open('hostvars_dumps.json', 'w') as hostvars_file:
+    with open(json_file, 'w') as hostvars_file:
         hostvars_file.write(hostvars)
 
     try:

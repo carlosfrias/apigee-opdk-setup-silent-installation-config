@@ -30,6 +30,7 @@
   when: groups['dc-1-ms'] is not defined
 
 - name: Construct cassandra hosts configuration
+  become: yes
   cassandra_hosts:
     inventory_hostname: '{{ inventory_hostname }}'
     hostvars: '{{ hostvars }}'

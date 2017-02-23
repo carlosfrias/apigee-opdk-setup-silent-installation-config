@@ -20,9 +20,9 @@
     src: 'silent-install.conf.j2'
     dest: "{{ opdk_installation_config_file }}"
     force: yes
-    owner: '{{ opdk_user_name }}'
-    group: '{{ opdk_group_name }}'
-    mode: 0655
+    owner: '{{ ansible_ssh_user }}'
+    group: '{{ ansible_ssh_user }}'
+    mode: 0744
   when: provided_response_file is not defined or not provided_response_file
   tags:
   - no-silent-install
@@ -31,9 +31,9 @@
   copy:
     src: "{{ provided_response_file }}"
     dest: "{{ opdk_installation_config_file }}"
-    owner: '{{ opdk_user_name }}'
-    group: '{{ opdk_group_name }}'
-    mode: 0655
+    owner: '{{ ansible_ssh_user }}'
+    group: '{{ ansible_ssh_user }}'
+    mode: 0744
   when: provided_response_file is defined and provided_response_file
   tags:
   - no-silent-install

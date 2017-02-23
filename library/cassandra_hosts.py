@@ -87,10 +87,10 @@ def main():
 
     inventory_hostname = module.params['inventory_hostname']
     hostvars = module.params['hostvars']
-    json_file = '/tmp/hostvars_params.json'
+    # json_file = '/tmp/hostvars_params.json'
     # json_file = tempfile.mkstemp(suffix='json', text=True)
-    with open(json_file, 'w') as hostvars_file:
-        hostvars_file.write(hostvars)
+    # with open(json_file, 'w') as hostvars_file:
+    #     hostvars_file.write(hostvars)
 
     # hostvars = hostvars.decode('base64')
     try:
@@ -101,8 +101,8 @@ def main():
         hostvars = hostvars.replace(": u'", ": '")
         hostvars = hostvars.replace("[u'", "['")
         hostvars = hostvars.replace("'", "\"")
-        with open(json_file, 'w') as file:
-            file.write(hostvars)
+        # with open(json_file, 'w') as file:
+        #     file.write(hostvars)
 
         try:
             hostvars = ast.literal_eval(hostvars)
@@ -118,8 +118,8 @@ def main():
             return
 
     hostvars = json.dumps(hostvars)
-    with open(json_file, 'w') as hostvars_file:
-        hostvars_file.write(hostvars)
+    # with open(json_file, 'w') as hostvars_file:
+    #     hostvars_file.write(hostvars)
 
     try:
         hostvars = json.loads(hostvars)

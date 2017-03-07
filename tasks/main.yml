@@ -12,9 +12,6 @@
 
 - include: cassandra.yml
 
-- include: postgres.yml
-  when: "{{ groups['pgmaster'] is defined and groups['pgstandby'] is defined }}"
-
 - name: Construct the silent-install file
   template:
     src: 'silent-install.conf.j2'

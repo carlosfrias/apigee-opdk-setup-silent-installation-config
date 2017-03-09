@@ -39,7 +39,7 @@ def extract_cassandra_groups(inventory_vars, hostvars):
                 if 'rack' in hostvar:
                     rack = hostvar['rack']
                 else:
-                    rack = '1'
+                    rack = 1
             cassandra_ip_map = cassandra_ip_mappings[cassandra_group_name]
             cassandra_ip_map[ds_ip] = { 'private_ip': private_ip, 'rack': rack}
     return cassandra_ip_mappings

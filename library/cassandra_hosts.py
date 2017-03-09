@@ -36,12 +36,19 @@ def extract_cassandra_groups(inventory_vars, hostvars):
                     private_ip = hostvar[LOCAL_ADDRESS]
                 else:
                     private_ip = NOT_DEFINED
+
                 if 'rack' in hostvar:
                     rack = hostvar['rack']
                 else:
                     rack = 1
+
+                if 'region' in hostvar:
+                    region = hostvar['region']
+                else:
+                    region = None
+
             cassandra_ip_map = cassandra_ip_mappings[cassandra_group_name]
-            cassandra_ip_map[ds_ip] = { 'private_ip': private_ip, 'rack': rack}
+            cassandra_ip_map[ds_ip] = { 'private_ip': private_ip, 'rack': rack, 'region': region}
     return cassandra_ip_mappings
 
 
@@ -49,7 +56,13 @@ def configure_cassandra_racks(cassandra_groups):
     for cassandra_group_name in cassandra_groups:
         region_parts = cassandra_group_name.split('-')
         for ds_ip in cassandra_groups[cassandra_group_name]:
-            cassandra_groups[cassandra_group_name][ds_ip]['private_ip'] = cassandra_groups[cassandra_group_name][ds_ip]['private_ip'] + ":" + region_parts[1] + ',' + str(cassandra_groups[cassandra_group_name][ds_ip]['rack'])
+            rack = cassandra_groups[cassandra_group_name][ds_ip]['rack']
+            if cassandra_groups[cassandra_group_name][ds_ip]['region'] is None:
+                region = region_parts[1]
+            else:
+                region = cassandra_groups[cassandra_group_name][ds_ip]['region']
+
+            cassandra_groups[cassandra_group_name][ds_ip]['private_ip'] = cassandra_groups[cassandra_group_name][ds_ip]['private_ip'] + ":" + str(region) + ',' + str(rack)
     return cassandra_groups
 
 

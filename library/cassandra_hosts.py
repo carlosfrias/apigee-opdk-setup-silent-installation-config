@@ -49,7 +49,7 @@ def configure_cassandra_racks(cassandra_groups):
     for cassandra_group_name in cassandra_groups:
         region_parts = cassandra_group_name.split('-')
         for ds_ip in cassandra_groups[cassandra_group_name]:
-            cassandra_groups[cassandra_group_name][ds_ip]['private_ip'] = cassandra_groups[cassandra_group_name][ds_ip]['private_ip'] + ":" + region_parts[1] + ',' + region_parts[1] + cassandra_groups[cassandra_group_name][ds_ip]['rack']
+            cassandra_groups[cassandra_group_name][ds_ip]['private_ip'] = cassandra_groups[cassandra_group_name][ds_ip]['private_ip'] + ":" + region_parts[1] + ',' + cassandra_groups[cassandra_group_name][ds_ip]['rack']
     return cassandra_groups
 
 

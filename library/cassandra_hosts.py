@@ -1,8 +1,6 @@
 from ansible.module_utils.basic import *
 import ast
 import json
-import tempfile
-import os
 
 GROUPS = 'groups'
 PUBLIC_ADDRESS = 'public_address'
@@ -38,16 +36,20 @@ def extract_cassandra_groups(inventory_vars, hostvars):
                     private_ip = hostvar[LOCAL_ADDRESS]
                 else:
                     private_ip = NOT_DEFINED
+                if 'rack' in hostvar:
+                    rack = hostvar['rack']
+                else:
+                    rack = '1'
             cassandra_ip_map = cassandra_ip_mappings[cassandra_group_name]
-            cassandra_ip_map[ds_ip] = { 'private_ip': private_ip }
+            cassandra_ip_map[ds_ip] = { 'private_ip': private_ip, 'rack': rack}
     return cassandra_ip_mappings
 
 
 def configure_cassandra_racks(cassandra_groups):
     for cassandra_group_name in cassandra_groups:
-        group_name_parts = cassandra_group_name.split('-')
+        region_parts = cassandra_group_name.split('-')
         for ds_ip in cassandra_groups[cassandra_group_name]:
-            cassandra_groups[cassandra_group_name][ds_ip]['private_ip'] = cassandra_groups[cassandra_group_name][ds_ip]['private_ip'] + ":" + group_name_parts[1] + ',1'
+            cassandra_groups[cassandra_group_name][ds_ip]['private_ip'] = cassandra_groups[cassandra_group_name][ds_ip]['private_ip'] + ":" + region_parts[1] + ',' + region_parts[1] + cassandra_groups[cassandra_group_name][ds_ip]['rack']
     return cassandra_groups
 
 
@@ -87,12 +89,6 @@ def main():
 
     inventory_hostname = module.params['inventory_hostname']
     hostvars = module.params['hostvars']
-    # json_file = '/tmp/hostvars_params.json'
-    # json_file = tempfile.mkstemp(suffix='json', text=True)
-    # with open(json_file, 'w') as hostvars_file:
-    #     hostvars_file.write(hostvars)
-
-    # hostvars = hostvars.decode('base64')
     try:
         hostvars = ast.literal_eval(hostvars)
     except SyntaxError as e:
@@ -101,8 +97,6 @@ def main():
         hostvars = hostvars.replace(": u'", ": '")
         hostvars = hostvars.replace("[u'", "['")
         hostvars = hostvars.replace("'", "\"")
-        # with open(json_file, 'w') as file:
-        #     file.write(hostvars)
 
         try:
             hostvars = ast.literal_eval(hostvars)
@@ -118,8 +112,6 @@ def main():
             return
 
     hostvars = json.dumps(hostvars)
-    # with open(json_file, 'w') as hostvars_file:
-    #     hostvars_file.write(hostvars)
 
     try:
         hostvars = json.loads(hostvars)

@@ -5,7 +5,7 @@ APIGEE_ADMINPW={{ opdk_user_pass }}
 LICENSE_FILE={{ opdk_license_target_file_path }}
 USE_LDAP_REMOTE_HOST={{ opdk_ldap_remote_host }}
 
-LDAP_TYPE={{ opdk_ldap_type | string }}
+LDAP_TYPE={{ opdk_ldap_type | quote }}
 {% if opdk_ldap_type == '2' %}
 {% if groups['dc-1-ldap'] is defined and groups['dc-2-ldap'] is defined and inventory_hostname in groups['dc-1'] %}
 LDAP_SID=1

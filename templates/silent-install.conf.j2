@@ -48,7 +48,7 @@ CASS_HOSTS="{{ cassandra_hosts }}"
 CASS_USERNAME={{ opdk_cass_username }}
 CASS_PASSWORD={{ opdk_cass_password }}
 
-SMTPMAILFROM="{{ opdk_smtp_mail_from }}"
+SMTPMAILFROM="{{ opdk_smtp_mail_from }} <{{  opdk_user_email }}>"
 
 SKIP_SMTP={{ opdk_skip_smtp }}
 {% if opdk_skip_smtp | bool %}

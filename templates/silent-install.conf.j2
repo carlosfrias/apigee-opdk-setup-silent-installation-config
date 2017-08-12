@@ -48,7 +48,7 @@ CASS_HOSTS="{{ cassandra_hosts }}"
 CASS_USERNAME={{ opdk_cass_username }}
 CASS_PASSWORD={{ opdk_cass_password }}
 
-{%  if opdk_version | version_compare('4.17.05', '>=') %}
+{%  if opdk_version | version_compare('4.17.01', '>') %}
 SMTPMAILFROM="{{ opdk_smtp_mail_from }}"
 {% endif %}
 

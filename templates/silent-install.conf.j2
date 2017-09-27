@@ -21,7 +21,7 @@ APIGEE_LDAPPW={{ opdk_ldap_pass }}
 ENABLE_AX={{ opdk_enable_ax }}
 MP_POD={{ opdk_mp_pod }}
 
-{# TODO: Build a module that discover the region of the inventory_hostname and update the REGION #}
+{# TODO: Build a module that discover the region of the inventory_hostname and update the REGION dynamically #}
 {% if groups['dc-1'] is defined and inventory_hostname in groups['dc-1'] %}
 REGION=dc-1
 {% elif groups['dc-2'] is defined and inventory_hostname in groups['dc-2'] %}
@@ -47,6 +47,9 @@ USE_CASS_CLUSTER={{ opdk_use_cass_cluster }}
 CASS_HOSTS="{{ cassandra_hosts }}"
 CASS_USERNAME={{ opdk_cass_username }}
 CASS_PASSWORD={{ opdk_cass_password }}
+
+SMTPMAILFROM="{{ opdk_smtp_mail_from }} <{{  opdk_user_email }}>"
+
 SKIP_SMTP={{ opdk_skip_smtp }}
 {% if opdk_skip_smtp | bool %}
 SMTPHOST={{ opdk_smtp_host }}

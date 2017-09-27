@@ -13,6 +13,11 @@
 
 - include: cassandra.yml
 
+- name: Ensure that a folder exists for the file to be generated
+  file:
+    path: "{{ opdk_installation_config_file | dir }}"
+    state: directory
+
 - name: Construct the silent-install file
   template:
     src: 'silent-install.conf.j2'

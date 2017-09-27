@@ -50,8 +50,8 @@ CASS_PASSWORD={{ opdk_cass_password }}
 
 SMTPMAILFROM="{{ opdk_smtp_mail_from }} <{{  opdk_user_email }}>"
 
-SKIP_SMTP={{ opdk_skip_smtp }}
-{% if opdk_skip_smtp | trim == 'n' %}
+SKIP_SMTP={{ opdk_smtp_skip }}
+{% if opdk_smtp_skip | trim == 'n' %}
 SMTPHOST={{ opdk_smtp_host }}
 SMTPPORT={{ opdk_smtp_port }}
 SMTPUSER={{ opdk_smtp_user }}

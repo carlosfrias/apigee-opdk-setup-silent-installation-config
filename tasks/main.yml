@@ -15,7 +15,7 @@
 
 - name: Ensure that a folder exists for the file to be generated
   file:
-    path: "{{ opdk_installation_config_file | dir }}"
+    path: "{{ opdk_installation_config_file | dirname }}"
     state: directory
 
 - name: Construct the silent-install file

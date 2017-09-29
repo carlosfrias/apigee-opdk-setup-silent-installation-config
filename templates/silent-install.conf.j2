@@ -64,11 +64,11 @@ BIND_ON_ALL_INTERFACES={{ opdk_bind_on_all_interfaces }}
 PG_MASTER={{ pgmaster_ip }}
 PG_STANDBY={{ pgstandby_ip }}
 {% endif %}
+PG_PWD={{ pg_pass }}
 
 {% if opdk_monetization is defined and opdk_monetization %}
 # Monetization has been configured
 PG_USER={{ pg_user }}
-PG_PWD={{ pg_pass }}
 MO_PG_HOST={{ pgmaster_ip }}
 MO_PG_USER={{ pg_user }}
 MO_PG_PASSWD={{ pg_pass }}

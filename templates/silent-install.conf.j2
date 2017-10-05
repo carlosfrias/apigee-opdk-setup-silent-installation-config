@@ -19,7 +19,7 @@ LDAP_PEER={{ hostvars[groups['dc-1-ldap'][0]]['local_address']  }}
 APIGEE_LDAPPW={{ opdk_ldap_pass }}
 
 ENABLE_AX={{ opdk_enable_ax }}
-MP_POD={{ opdk_mp_pod }}
+MP_POD={{ opdk_mp_pod | default(default_mp_pod) }}
 
 {# TODO: Build a module that discover the region of the inventory_hostname and update the REGION dynamically #}
 {% if groups['dc-1'] is defined and inventory_hostname in groups['dc-1'] %}

@@ -5,7 +5,7 @@ import json
 GROUPS = 'groups'
 PUBLIC_ADDRESS = 'public_address'
 RACK = "rack"
-LOCAL_ADDRESS = 'local_address'
+PRIVATE_ADDRESS = 'private_address'
 NOT_DEFINED = 'NOT DEFINED'
 LEAD_GROUP = 'lead_group'
 
@@ -32,8 +32,8 @@ def extract_cassandra_groups(inventory_vars, hostvars):
         for ds_ip in cassandra_groups[cassandra_group_name]:
             if ds_ip in hostvars:
                 hostvar = hostvars[ds_ip]
-                if LOCAL_ADDRESS in hostvar:
-                    private_ip = hostvar[LOCAL_ADDRESS]
+                if PRIVATE_ADDRESS in hostvar:
+                    private_ip = hostvar[PRIVATE_ADDRESS]
                 else:
                     private_ip = NOT_DEFINED
 

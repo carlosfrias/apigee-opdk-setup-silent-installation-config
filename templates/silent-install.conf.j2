@@ -7,13 +7,13 @@ USE_LDAP_REMOTE_HOST={{ opdk_ldap_remote_host }}
 
 LDAP_TYPE='{{ opdk_ldap_type }}'
 {% if opdk_ldap_type == '2' %}
-{% if groups['dc-1-ldap'] is defined and groups['dc-2-ldap'] is defined and inventory_hostname in groups['dc-1'] %}
+{% if groups['dc1-ldap'] is defined and groups['dc2-ldap'] is defined and inventory_hostname in groups['dc1'] %}
 LDAP_SID=1
-LDAP_PEER={{ hostvars[groups['dc-2-ldap'][0]]['private_address']  }}
+LDAP_PEER={{ hostvars[groups['dc2-ldap'][0]]['private_address']  }}
 {% endif %}
-{% if groups['dc-1-ldap'] is defined and groups['dc-2-ldap'] is defined and inventory_hostname in groups['dc-2'] %}
+{% if groups['dc1-ldap'] is defined and groups['dc2-ldap'] is defined and inventory_hostname in groups['dc2'] %}
 LDAP_SID=2
-LDAP_PEER={{ hostvars[groups['dc-1-ldap'][0]]['private_address']  }}
+LDAP_PEER={{ hostvars[groups['dc1-ldap'][0]]['private_address']  }}
 {% endif %}
 {% endif %}
 APIGEE_LDAPPW={{ opdk_ldap_pass }}
@@ -22,10 +22,10 @@ ENABLE_AX={{ opdk_enable_ax }}
 MP_POD={{ opdk_mp_pod | default(default_mp_pod) }}
 
 {# TODO: Build a module that discover the region of the inventory_hostname and update the REGION dynamically #}
-{% if groups['dc-1'] is defined and inventory_hostname in groups['dc-1'] %}
-REGION=dc-1
-{% elif groups['dc-2'] is defined and inventory_hostname in groups['dc-2'] %}
-REGION=dc-2
+{% if groups['dc1'] is defined and inventory_hostname in groups['dc1'] %}
+REGION=dc1
+{% elif groups['dc2'] is defined and inventory_hostname in groups['dc2'] %}
+REGION=dc2
 {% elif groups['dc-3'] is defined and inventory_hostname in groups['dc-3'] %}
 REGION=dc-3
 {% endif %}
@@ -35,10 +35,10 @@ USE_ZK_CLUSTER={{ opdk_use_zk_cluster }}
 ZK_HOSTS="{% for host in groups['ds'] %}{{ hostvars[host]['private_address'] }}{% if hostvars[host]['zk_observer'] is defined and hostvars[host]['zk_observer'] == 'true' %}:observer{% endif %}{% if not loop.last %} {% endif %}{% endfor %}"
 
 {# TODO: Build a module to construct the ZK_CLIENT_HOSTS value#}
-{% if groups['dc-1'] is defined and inventory_hostname in groups['dc-1'] %}
-ZK_CLIENT_HOSTS="{% for host in groups['dc-1-ds'] %}{{ hostvars[host]['private_address'] }}{% if not loop.last %} {% endif %}{% endfor %}"
-{% elif groups['dc-2'] is defined and inventory_hostname in groups['dc-2']%}
-ZK_CLIENT_HOSTS="{% for host in groups['dc-2-ds'] %}{{ hostvars[host]['private_address'] }}{% if not loop.last %} {% endif %}{% endfor %}"
+{% if groups['dc1'] is defined and inventory_hostname in groups['dc1'] %}
+ZK_CLIENT_HOSTS="{% for host in groups['dc1-ds'] %}{{ hostvars[host]['private_address'] }}{% if not loop.last %} {% endif %}{% endfor %}"
+{% elif groups['dc2'] is defined and inventory_hostname in groups['dc2']%}
+ZK_CLIENT_HOSTS="{% for host in groups['dc2-ds'] %}{{ hostvars[host]['private_address'] }}{% if not loop.last %} {% endif %}{% endfor %}"
 {% else %}
 ZK_CLIENT_HOSTS="{% for host in groups['ds'] %}{{ hostvars[host]['private_address'] }}{% if not loop.last %} {% endif %}{% endfor %}"
 {% endif %}
@@ -75,10 +75,10 @@ MO_PG_USER={{ pg_user }}
 MO_PG_PASSWD={{ pg_pass }}
 CASS_CLUSTERNAME={{ opdk_cass_clustername }}
 APIGEE_PORT_HTTP_MS={{ ms_ext_mgmt_port }}
-{% if groups['dc-1-qpid'] is defined and inventory_hostname in groups['dc-1-qpid'] %}
-QPID_HOST="{{  groups['dc-1-qpid'] | join(' ') }}"
+{% if groups['dc1-qpid'] is defined and inventory_hostname in groups['dc1-qpid'] %}
+QPID_HOST="{{  groups['dc1-qpid'] | join(' ') }}"
 {% else %}
-QPID_HOST="{{  groups['dc-2-qpid'] | join(' ') }}"
+QPID_HOST="{{  groups['dc2-qpid'] | join(' ') }}"
 {% endif %}
 QPID_PORT={{ qpid_ext_mgmt_port }}
 MX_GROUP=mxgroup

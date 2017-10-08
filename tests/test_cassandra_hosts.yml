@@ -15,7 +15,7 @@
   roles:
   - apigee-opdk-setup-default-settings
 
-- hosts: dc-1-rmp[0]
+- hosts: dc1-rmp[0]
   become: yes
   vars:
     opdk_cass_password: 'cassandra'

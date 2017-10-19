@@ -21,14 +21,7 @@ APIGEE_LDAPPW={{ opdk_ldap_pass }}
 ENABLE_AX={{ opdk_enable_ax }}
 MP_POD={{ opdk_mp_pod | default(default_mp_pod) }}
 
-{# TODO: Build a module that discover the region of the inventory_hostname and update the REGION dynamically #}
-{% if groups['dc-1'] is defined and inventory_hostname in groups['dc-1'] %}
-REGION=dc-1
-{% elif groups['dc-2'] is defined and inventory_hostname in groups['dc-2'] %}
-REGION=dc-2
-{% elif groups['dc-3'] is defined and inventory_hostname in groups['dc-3'] %}
-REGION=dc-3
-{% endif %}
+REGION={{ region }}
 
 USE_ZK_CLUSTER={{ opdk_use_zk_cluster }}
 {# TODO: Build a module to construct the ZK_HOSTS value#}

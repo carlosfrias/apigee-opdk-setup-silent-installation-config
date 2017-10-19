@@ -18,6 +18,11 @@
     path: "{{ opdk_installation_config_file | dirname }}"
     state: directory
 
+- name: Construct name of dev portal response file
+  cache:
+    key: 'opdk_installation_config_file'
+    value: '{{ opdk_installer_path }}/edge-response-{{ opdk_version }}-{{ region }}.conf'
+
 - name: Construct the silent-install file
   template:
     src: 'silent-install.conf.j2'

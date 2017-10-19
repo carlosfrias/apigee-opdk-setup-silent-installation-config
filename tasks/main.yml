@@ -4,7 +4,7 @@
   file:
     path: "{{ opdk_installation_config_file }}"
     state: absent
-  when: provided_response_file is not defined or not provided_response_file
+  when: manual_response_file is not defined or not manual_response_file
 
 - name: Fail if ldap password is not provided
   fail:
@@ -26,17 +26,17 @@
     owner: '{{ opdk_user_name }}'
     group: '{{ opdk_group_name }}'
     mode: 0655
-  when: provided_response_file is not defined or not provided_response_file
+  when: manual_response_file is not defined or not manual_response_file
   tags:
   - no-silent-install
 
 - name: Copy provided silent-install file
   copy:
-    src: "{{ provided_response_file }}"
+    src: "{{ manual_response_file }}"
     dest: "{{ opdk_installation_config_file }}"
     owner: '{{ opdk_user_name }}'
     group: '{{ opdk_group_name }}'
     mode: 0655
-  when: provided_response_file is defined and provided_response_file
+  when: manual_response_file is defined and manual_response_file
   tags:
   - no-silent-install

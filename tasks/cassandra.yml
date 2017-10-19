@@ -34,4 +34,4 @@
   cassandra_hosts:
     inventory_hostname: '{{ inventory_hostname }}'
     hostvars: '{{ hostvars }}'
-  when: provided_response_file is not defined or not provided_response_file
+  when: manual_response_file is not defined or not manual_response_file

@@ -1,5 +1,11 @@
 ---
 # tasks file for apigee-opdk-setup-silent-file
+- name: Update cache with manual_response_file if provided
+  cache:
+    key: 'manual_response_file'
+    value: '{{ manual_response_file }}'
+  when: manual_response_file is defined
+
 - name: Remove the old response file
   file:
     path: "{{ opdk_installation_config_file }}"

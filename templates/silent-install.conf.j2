@@ -7,11 +7,11 @@ USE_LDAP_REMOTE_HOST={{ opdk_ldap_remote_host }}
 
 LDAP_TYPE='{{ opdk_ldap_type }}'
 {% if opdk_ldap_type == '2' %}
-{% if groups['dc-1-ldap'] is defined and groups['dc-2-ldap'] is defined and inventory_hostname in groups['dc-1'] %}
+{% if groups['dc-1-ldap'] is defined and groups['dc-2-ldap'] is defined and inventory_hostname in groups['dc-1-edge'] %}
 LDAP_SID=1
 LDAP_PEER={{ hostvars[groups['dc-2-ldap'][0]]['private_address']  }}
 {% endif %}
-{% if groups['dc-1-ldap'] is defined and groups['dc-2-ldap'] is defined and inventory_hostname in groups['dc-2'] %}
+{% if groups['dc-1-ldap'] is defined and groups['dc-2-ldap'] is defined and inventory_hostname in groups['dc-2-edge'] %}
 LDAP_SID=2
 LDAP_PEER={{ hostvars[groups['dc-1-ldap'][0]]['private_address']  }}
 {% endif %}
@@ -28,9 +28,9 @@ USE_ZK_CLUSTER={{ opdk_use_zk_cluster }}
 ZK_HOSTS="{% for host in groups['ds'] %}{{ hostvars[host]['private_address'] }}{% if hostvars[host]['zk_observer'] is defined and hostvars[host]['zk_observer'] == 'true' %}:observer{% endif %}{% if not loop.last %} {% endif %}{% endfor %}"
 
 {# TODO: Build a module to construct the ZK_CLIENT_HOSTS value#}
-{% if groups['dc-1'] is defined and inventory_hostname in groups['dc-1'] %}
+{% if groups['dc-1-edge'] is defined and inventory_hostname in groups['dc-1-edge'] %}
 ZK_CLIENT_HOSTS="{% for host in groups['dc-1-ds'] %}{{ hostvars[host]['private_address'] }}{% if not loop.last %} {% endif %}{% endfor %}"
-{% elif groups['dc-2'] is defined and inventory_hostname in groups['dc-2']%}
+{% elif groups['dc-2-edge'] is defined and inventory_hostname in groups['dc-2-edge']%}
 ZK_CLIENT_HOSTS="{% for host in groups['dc-2-ds'] %}{{ hostvars[host]['private_address'] }}{% if not loop.last %} {% endif %}{% endfor %}"
 {% else %}
 ZK_CLIENT_HOSTS="{% for host in groups['ds'] %}{{ hostvars[host]['private_address'] }}{% if not loop.last %} {% endif %}{% endfor %}"

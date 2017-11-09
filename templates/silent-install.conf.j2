@@ -54,7 +54,7 @@ SMTPSSL={{ opdk_smtp_ssl }}
 {% endif %}
 BIND_ON_ALL_INTERFACES={{ opdk_bind_on_all_interfaces }}
 
-{% if pgmaster_ip is defined and pgstandby_ip is defined %}
+{% if pgmaster_ip is defined and pgmaster_ip | trim | length > 0 and pgstandby_ip is defined and pgstandby_ip | trim | length > 0 %}
 PG_MASTER={{ pgmaster_ip }}
 PG_STANDBY={{ pgstandby_ip }}
 {% endif %}

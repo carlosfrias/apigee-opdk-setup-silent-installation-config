@@ -1,7 +1,7 @@
 HOSTIP="$(hostname -i)"
 MSIP={{ local_mgmt_ip }}
 ADMIN_EMAIL={{ opdk_user_email }}
-APIGEE_ADMINPW={{ opdk_user_pass }}
+APIGEE_ADMINPW='{{ opdk_user_pass }}'
 LICENSE_FILE={{ opdk_license_target_file_path }}
 USE_LDAP_REMOTE_HOST={{ opdk_ldap_remote_host }}
 
@@ -16,7 +16,7 @@ LDAP_SID=2
 LDAP_PEER={{ hostvars[groups['dc-1-ldap'][0]]['private_address']  }}
 {% endif %}
 {% endif %}
-APIGEE_LDAPPW={{ opdk_ldap_pass }}
+APIGEE_LDAPPW='{{ opdk_ldap_pass }}'
 
 ENABLE_AX={{ opdk_enable_ax }}
 MP_POD={{ opdk_mp_pod | default(default_mp_pod) }}
@@ -39,7 +39,7 @@ ZK_CLIENT_HOSTS="{% for host in groups['ds'] %}{{ hostvars[host]['private_addres
 USE_CASS_CLUSTER={{ opdk_use_cass_cluster }}
 CASS_HOSTS="{{ cassandra_hosts }}"
 CASS_USERNAME={{ opdk_cass_username }}
-CASS_PASSWORD={{ opdk_cass_password }}
+CASS_PASSWORD='{{ opdk_cass_password }}'
 CASS_AUTH={{ opdk_cass_auth }}
 
 SMTPMAILFROM="{{ opdk_smtp_mail_from }} <{{  opdk_user_email }}>"
@@ -49,7 +49,7 @@ SKIP_SMTP={{ opdk_smtp_skip }}
 SMTPHOST={{ opdk_smtp_host }}
 SMTPPORT={{ opdk_smtp_port }}
 SMTPUSER={{ opdk_smtp_user }}
-SMTPPASSWORD={{ opdk_smtp_password }}
+SMTPPASSWORD='{{ opdk_smtp_password }}'
 SMTPSSL={{ opdk_smtp_ssl }}
 {% endif %}
 BIND_ON_ALL_INTERFACES={{ opdk_bind_on_all_interfaces }}
@@ -58,14 +58,14 @@ BIND_ON_ALL_INTERFACES={{ opdk_bind_on_all_interfaces }}
 PG_MASTER={{ pgmaster_ip }}
 PG_STANDBY={{ pgstandby_ip }}
 {% endif %}
-PG_PWD={{ pg_pass }}
+PG_PWD='{{ pg_pass }}'
 
 {% if opdk_monetization is defined and opdk_monetization | bool %}
 # Monetization has been configured
 PG_USER={{ pg_user }}
 MO_PG_HOST={{ pgmaster_ip }}
 MO_PG_USER={{ pg_user }}
-MO_PG_PASSWD={{ pg_pass }}
+MO_PG_PASSWD='{{ pg_pass }}'
 CASS_CLUSTERNAME={{ opdk_cass_clustername }}
 APIGEE_PORT_HTTP_MS={{ ms_ext_mgmt_port }}
 {% if groups['dc-1-qpid'] is defined and inventory_hostname in groups['dc-1-qpid'] %}

@@ -60,7 +60,7 @@ PG_STANDBY={{ pgstandby_ip }}
 {% endif %}
 PG_PWD='{{ pg_pass }}'
 
-{% if opdk_monetization is defined and opdk_monetization | bool %}
+{% if opdk_monetization is defined and opdk_monetization | bool == True %}
 # Monetization has been configured
 PG_USER={{ pg_user }}
 MO_PG_HOST={{ pgmaster_ip }}

@@ -18,7 +18,8 @@ LDAP_PEER={{ hostvars[groups['dc-1-ldap'][0]]['private_address']  }}
 {% endif %}
 {% endif %}
 APIGEE_LDAPPW='{{ opdk_ldap_pass }}'
-{% elif %}
+{% endif %}
+{% if use_opdk_ldap_remote_host is defined and use_opdk_ldap_remote_host | trim | lower == 'y' %}
 LDAP_HOST={{ opdk_ldap_host }}
 LDAP_PORT={{ opdk_ldap_port }}
 {% endif %}

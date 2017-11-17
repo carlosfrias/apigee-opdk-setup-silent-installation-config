@@ -7,16 +7,16 @@ LICENSE_FILE={{ opdk_license_target_file_path }}
 USE_LDAP_REMOTE_HOST={{ use_opdk_ldap_remote_host | default('n') }}
 {% if (use_opdk_ldap_remote_host is defined and use_opdk_ldap_remote_host | trim == 'n') or use_opdk_ldap_remote_host is not defined %}
 LDAP_TYPE='{{ opdk_ldap_type }}'
-{% if opdk_ldap_type == '2' %}
-{% if groups['dc-1-ldap'] is defined and groups['dc-2-ldap'] is defined and inventory_hostname in groups['dc-1-edge'] %}
-LDAP_SID=1
-LDAP_PEER={{ hostvars[groups['dc-2-ldap'][0]]['private_address']  }}
-{% endif %}
-{% if groups['dc-1-ldap'] is defined and groups['dc-2-ldap'] is defined and inventory_hostname in groups['dc-2-edge'] %}
-LDAP_SID=2
-LDAP_PEER={{ hostvars[groups['dc-1-ldap'][0]]['private_address']  }}
-{% endif %}
-{% endif %}
+{#{% if opdk_ldap_type == '2' %}#}
+{#{% if groups['dc-1-ldap'] is defined and groups['dc-2-ldap'] is defined and inventory_hostname in groups['dc-1-edge'] %}#}
+{#LDAP_SID=1#}
+{#LDAP_PEER={{ hostvars[groups['dc-2-ldap'][0]]['private_address']  }}#}
+{#{% endif %}#}
+{#{% if groups['dc-1-ldap'] is defined and groups['dc-2-ldap'] is defined and inventory_hostname in groups['dc-2-edge'] %}#}
+{#LDAP_SID=2#}
+{#LDAP_PEER={{ hostvars[groups['dc-1-ldap'][0]]['private_address']  }}#}
+{#{% endif %}#}
+{#{% endif %}#}
 APIGEE_LDAPPW='{{ opdk_ldap_pass }}'
 {% endif %}
 {% if use_opdk_ldap_remote_host is defined and use_opdk_ldap_remote_host | trim | lower == 'y' %}

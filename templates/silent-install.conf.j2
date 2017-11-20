@@ -4,10 +4,10 @@ ADMIN_EMAIL={{ opdk_user_email }}
 APIGEE_ADMINPW='{{ opdk_user_pass }}'
 LICENSE_FILE={{ opdk_license_target_file_path }}
 
-USE_LDAP_REMOTE_HOST={{ use_opdk_ldap_remote_host | default('n') }}
-{% if (use_opdk_ldap_remote_host is defined and use_opdk_ldap_remote_host | trim == 'n') or use_opdk_ldap_remote_host is not defined %}
 LDAP_TYPE='{{ opdk_ldap_type }}'
 APIGEE_LDAPPW='{{ opdk_ldap_pass }}'
+USE_LDAP_REMOTE_HOST={{ use_opdk_ldap_remote_host | default('n') }}
+{% if (use_opdk_ldap_remote_host is defined and use_opdk_ldap_remote_host | trim == 'n') or use_opdk_ldap_remote_host is not defined %}
 {% if opdk_ldap_type == '2' %}
 LDAP_SID={{ ldap_sid }}
 LDAP_PEER={{ ldap_peer }}

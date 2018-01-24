@@ -12,6 +12,7 @@
     value: "{{ opdk_installer_path }}/edge-response-{{ opdk_version }}-{{ region }}.conf"
 
 - name: Remove the old response file
+  become: yes
   file:
     path: "{{ opdk_installation_config_file }}"
     state: absent

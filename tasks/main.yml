@@ -37,6 +37,7 @@
   when: region == 'dc-2' and opdk_ldap_type == '2'
 
 - name: Ensure that a folder exists for the file to be generated
+  become: yes
   file:
     path: "{{ opdk_installation_config_file | dirname }}"
     state: directory
@@ -47,6 +48,7 @@
     value: '{{ opdk_installer_path }}/edge-response-{{ opdk_version }}-{{ region }}.conf'
 
 - name: Construct the silent-install file
+  become: yes
   template:
     src: 'silent-install.conf.j2'
     dest: "{{ opdk_installation_config_file }}"
@@ -55,10 +57,10 @@
     group: '{{ opdk_group_name }}'
     mode: 0655
   when: manual_response_file is not defined or not manual_response_file
-  tags:
-  - no-silent-install
+  tags: ['no-silent-install']
 
 - name: Copy provided silent-install file
+  become: yes
   copy:
     src: "{{ manual_response_file }}"
     dest: "{{ opdk_installation_config_file }}"
@@ -66,5 +68,4 @@
     group: '{{ opdk_group_name }}'
     mode: 0655
   when: manual_response_file is defined and manual_response_file
-  tags:
-  - no-silent-install
+  tags: ['no-silent-install']

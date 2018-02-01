@@ -1,3 +1,4 @@
+ENABLE_SYSTEM_CHECK="{{ enable_system_check | default('n') }}"
 HOSTIP="$(hostname -i)"
 MSIP={{ local_mgmt_ip }}
 ADMIN_EMAIL={{ opdk_user_email }}

@@ -1,3 +1,17 @@
+# Copyright 2018 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 from ansible.module_utils.basic import *
 import ast
 import json
@@ -116,9 +130,9 @@ def main():
         try:
             hostvars = ast.literal_eval(hostvars)
         except SyntaxError as e:
-            msg = "ast.literal_eval conversion failed on line {0} with {1}".format(e.lineno, e.msg)
+            msg = "ast.literal_eval conversion failed on line {0} with {1}. ".format(e.lineno, e.msg)
             msg += "This occurred due to an operating system setting. There is a way around."
-            msg += "This means that you will need re-run with --tags=apigee-silent-config to generate the silent-install.conf file."
+            msg += "This means that you will need re-run with --tags=apigee-config or --tags=config to generate the silent-install.conf file."
             msg += "Then complete the installation with --skip-tags=os-pre-req,apigee-pre-req."
             module.fail_json(
                 changed=False,

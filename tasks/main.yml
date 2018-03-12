@@ -29,13 +29,13 @@
   set_fact:
     ldap_sid: '1'
     ldap_peer: "{{ hostvars[groups['dc-2-ldap'][0]]['private_address'] }}"
-  when: region == 'dc-1' and opdk_ldap_type == '2'
+  when: region == 'dc-1' and opdk_ldap_type == '2' and groups['dc-2-ldap'] is defined
 
 - name: Regional LDAP IP for dc-2 if replicating LDAP
   set_fact:
     ldap_sid: '2'
     ldap_peer: "{{ hostvars[groups['dc-1-ldap'][0]]['private_address'] }}"
-  when: region == 'dc-2' and opdk_ldap_type == '2'
+  when: region == 'dc-2' and opdk_ldap_type == '2' and groups['dc-1-ldap'] is defined
 
 - name: Ensure that a folder exists for the file to be generated
   become: yes

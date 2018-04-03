@@ -48,6 +48,11 @@
     key: 'opdk_installation_config_file'
     value: '{{ opdk_installer_path }}/edge-response-{{ opdk_version }}-{{ region }}.conf'
 
+- name: Touch file
+  file:
+    state: touch
+    path: "{{ opdk_installation_config_file }}"
+
 - name: Construct the silent-install file
   become: yes
   template:

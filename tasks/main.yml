@@ -49,6 +49,7 @@
     value: '{{ opdk_installer_path }}/edge-response-{{ opdk_version }}-{{ region }}.conf'
 
 - name: Touch file
+  become: yes
   file:
     state: touch
     path: "{{ opdk_installation_config_file }}"

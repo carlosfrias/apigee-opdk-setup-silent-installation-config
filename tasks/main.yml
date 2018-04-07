@@ -23,7 +23,7 @@
     msg: "Ldap password is required, please provide ldap password"
   when: opdk_ldap_pass is not defined or opdk_ldap_pass == ""
 
-- include: cassandra.yml
+- include_tasks: cassandra.yml
 
 - name: Regional LDAP IP for dc-1 if replicating LDAP
   set_fact:

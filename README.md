@@ -13,25 +13,12 @@ separately. It is assumed that files containing credentials are stored in the ~/
 Role Variables
 --------------
 
-Variable defaults are managed in the role apigee-opdk-setup-default-settings. 
-
-Apigee silent installation configuration file
-
-    opdk_installation_config_file: "{{ opdk_installer_path }}/silent-install.conf"
-
-Reference to the OPDK user name
-
-    opdk_user_name: ''
-    
-Reerence to the OPDK user group name
-    
-    opdk_group_name: ''
-    
-Reference to an installation file that is provided by the user instead of the generated installation file.
-
-     provided_response_file: ''
-
-
+| Variable Name | Description |
+| --- | --- |
+| opdk_installation_config_file | Apigee silent installation configuration file |
+| opdk_user_name | Reference to the OPDK user name |
+| opdk_group_name | Reference to the OPDK user group name |
+| provided_response_file | Reference to an installation file that is provided by the user instead of the generated installation file. |
 
 Dependencies
 ------------
@@ -50,12 +37,14 @@ Example Playbook
 License
 -------
 
-Apache License Version 2.0, January 2004
+Apache 2.0
 
 Author Information
 ------------------
 
 Carlos Frias
+
+
 <!-- BEGIN Google Required Disclaimer -->
 
 # Not Google Product Clause

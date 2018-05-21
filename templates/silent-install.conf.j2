@@ -51,7 +51,9 @@ SMTPUSER={{ opdk_smtp_user }}
 SMTPPASSWORD='{{ opdk_smtp_password }}'
 SMTPSSL={{ opdk_smtp_ssl }}
 {% endif %}
+{% if opdk_version | version_compare('<', '4.17.09') %}
 BIND_ON_ALL_INTERFACES={{ opdk_bind_on_all_interfaces }}
+{% endif %}
 
 {% if pgmaster_ip is defined and pgmaster_ip | trim | length > 0 and pgstandby_ip is defined and pgstandby_ip | trim | length > 0 %}
 PG_MASTER={{ pgmaster_ip }}

@@ -1,4 +1,4 @@
-ENABLE_SYSTEM_CHECK="{{ enable_system_check | default('n') }}"
+ENABLE_SYSTEM_CHECK={{ enable_system_check | default('n') }}
 HOSTIP="$(hostname -i)"
 MSIP={{ local_mgmt_ip }}
 ADMIN_EMAIL={{ opdk_user_email }}
@@ -82,6 +82,3 @@ QPID_PORT={{ qpid_ext_mgmt_port }}
 MX_GROUP=mxgroup
 ORG_NAME={{ org_name }}
 {% endif %}
-
-ENABLE_SYSTEM_CHECK={{ enable_system_check }}
-

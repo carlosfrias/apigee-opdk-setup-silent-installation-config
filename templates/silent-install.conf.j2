@@ -51,7 +51,7 @@ SMTPUSER={{ opdk_smtp_user }}
 SMTPPASSWORD='{{ opdk_smtp_password }}'
 SMTPSSL={{ opdk_smtp_ssl }}
 {% endif %}
-{% if opdk_version | version_compare('4.17.09', '<') %}
+{% if opdk_version is version_compare('4.17.09', '<') %}
 BIND_ON_ALL_INTERFACES={{ opdk_bind_on_all_interfaces }}
 {% endif %}
 

@@ -3,4 +3,9 @@
 opdk_monetization: false
 opdk_license_target_file_path: "{{ opdk_installer_path }}/license.conf"
 
+# Default LDAP port
 opdk_ldap_port: 10389
+
+# Default to enable analytics
+opdk_enable_ax: 'y'
+

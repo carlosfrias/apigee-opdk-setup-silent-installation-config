@@ -46,14 +46,14 @@
 
 - name: Regional LDAP IP for dc-1 if replicating LDAP
   set_fact:
-    ldap_sid: '1'
-    ldap_peer: "{{ hostvars[groups['dc-2-ldap'][0]]['private_address'] }}"
+    opdk_ldap_sid: '1'
+    opdk_ldap_peer: "{{ hostvars[groups['dc-2-ldap'][0]]['private_address'] }}"
   when: region == 'dc-1' and opdk_ldap_type == '2' and groups['dc-2-ldap'] is defined
 
 - name: Regional LDAP IP for dc-2 if replicating LDAP
   set_fact:
-    ldap_sid: '2'
-    ldap_peer: "{{ hostvars[groups['dc-1-ldap'][0]]['private_address'] }}"
+    opdk_ldap_sid: '2'
+    opdk_ldap_peer: "{{ hostvars[groups['dc-1-ldap'][0]]['private_address'] }}"
   when: region == 'dc-2' and opdk_ldap_type == '2' and groups['dc-1-ldap'] is defined
 
 - name: Ensure that a folder exists for the file to be generated
@@ -83,7 +83,7 @@
       - opdk_license_target_file_path is defined
       - use_opdk_ldap_remote_host is defined
       - opdk_ldap_pass is defined
-      - ldap_sid is defined
+      - opdk_ldap_sid is defined
       - opdk_ldap_type is defined
       - opdk_ldap_port is defined
       - opdk_enable_ax is defined
@@ -106,8 +106,8 @@
 - name: Assert that LDAP replication attributes are available
   assert:
     that:
-      - ldap_ip is defined
-      - ldap_peer is defined
+      - opdk_ldap_ip is defined
+      - opdk_ldap_peer is defined
     msg: "Please provide the missing attributes, it can be either added to either custom-properties.yml or credentials.yml or passed as -e key=value"
   when: opdk_ldap_type == '2'
 

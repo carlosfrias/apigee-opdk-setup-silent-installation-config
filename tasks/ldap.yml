@@ -20,7 +20,7 @@
     cache:
       key: use_opdk_ldap_remote_host
       value: 'y'
-    when: ldap_ip != local_mgmt_ip
+    when: opdk_ldap_ip != local_mgmt_ip
 
   - name: Set ldap port
     cache:
@@ -35,7 +35,7 @@
 
   - name: Set ldap sid flag
     cache:
-      key: ldap_sid
+      key: opdk_ldap_sid
       value: 1
 
   when: groups['dc-1'] is defined and groups['dc-1-ldap'] is defined and inventory_hostname in groups['dc-1'] and hostvars[groups['dc-1-ms'][0]][interface_name].ipv4.address is defined
@@ -56,7 +56,7 @@
     cache:
       key: use_opdk_ldap_remote_host
       value: 'y'
-    when: ldap_ip != local_mgmt_ip
+    when: opdk_ldap_ip != local_mgmt_ip
 
   - name: Set ldap port
     cache:
@@ -71,7 +71,7 @@
 
   - name: Set ldap sid flag
     cache:
-      key: ldap_sid
+      key: opdk_ldap_sid
       value: 2
 
   when: groups['dc-2'] is defined and groups['dc-2-ldap'] is defined and inventory_hostname in groups['dc-2'] and hostvars[groups['dc-1-ms'][0]][interface_name].ipv4.address is defined
@@ -80,4 +80,4 @@
   cache:
     key: 'opdk_ldap_ip'
     value: "{{ local_mgmt_ip }}"
-  when: ldap_ip is not defined or ldap_ip | trim | length == 0
+  when: opdk_ldap_ip is not defined or opdk_ldap_ip | trim | length == 0

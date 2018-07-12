@@ -1,0 +1,26 @@
+---
+- name: Assert existence of private address
+  assert:
+    that:
+      - "hostvars[inventory_hostname][interface_name].ipv4.address"
+    msg: "Unable to retrieve private address"
+
+- name: Normalized name for private address
+  cache:
+    key: 'private_address'
+    value: '{{ hostvars[inventory_hostname][interface_name].ipv4.address }}'
+
+- block:
+
+  - name: Update EC2 for private ip on AWS
+    ec2_metadata_facts:
+    when: ansible_ec2_local_ipv4 is not defined
+
+  - name: Normalized name for private address on AWS
+    cache:
+      key: 'private_address'
+      value: '{{ ansible_ec2_local_ipv4 }}'
+    when: ansible_ec2_local_ipv4 is defined
+
+  when: ansible_bios_version is defined and ansible_bios_version | search('amazon')
+

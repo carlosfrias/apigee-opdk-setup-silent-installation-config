@@ -11,6 +11,9 @@
     key: 'interface_name'
     value: 'ansible_{{ ansible_default_ipv4.interface }}'
 
+- name: Determine private address of node
+  include_tasks: private_address.yml
+
 - name: Regional Management Server IP Address
   include_tasks: local_mgmt_ip.yml
 

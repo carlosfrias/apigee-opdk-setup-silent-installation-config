@@ -9,3 +9,6 @@ opdk_ldap_port: 10389
 # Default to enable analytics
 opdk_enable_ax: 'y'
 
+# Default pod
+default_mp_pod: 'gateway'
+

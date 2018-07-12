@@ -14,7 +14,6 @@
 - name: Regional Management Server IP Address
   include_tasks: local_mgmt_ip.yml
 
-# local_mgmt_ip.yml must run before ldap
 - name: Determine LDAP settings for Region
   include_tasks: ldap.yml
 

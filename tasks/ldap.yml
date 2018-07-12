@@ -25,7 +25,7 @@
   - name: Set ldap port
     cache:
       key: opdk_ldap_port
-      value: '{{ ldap_data_port }}'
+      value: '{{ opdk_ldap_port }}'
 
   - name: Set ldap type
     cache:

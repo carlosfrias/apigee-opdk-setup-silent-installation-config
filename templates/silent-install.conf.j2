@@ -14,7 +14,7 @@ LDAP_PEER={{ ldap_peer }}
 {% endif %}
 {% if (use_opdk_ldap_remote_host is defined and use_opdk_ldap_remote_host | trim == 'y') or use_opdk_ldap_remote_host is not defined %}
 LDAP_HOST={{ ldap_ip }}
-LDAP_PORT={{ opdk_ldap_port }}
+LDAP_PORT={{ opdk_ldap_port | default('10389')}}
 {% endif %}
 
 ENABLE_AX={{ opdk_enable_ax }}

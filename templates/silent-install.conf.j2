@@ -13,7 +13,7 @@ LDAP_SID={{ ldap_sid }}
 LDAP_PEER={{ ldap_peer }}
 {% endif %}
 {% if (use_opdk_ldap_remote_host is defined and use_opdk_ldap_remote_host | trim == 'y') or use_opdk_ldap_remote_host is not defined %}
-LDAP_HOST={{ ldap_ip }}
+LDAP_HOST={{ opdk_ldap_ip }}
 LDAP_PORT={{ opdk_ldap_port }}
 {% endif %}
 

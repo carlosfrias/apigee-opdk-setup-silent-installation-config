@@ -1,7 +1,7 @@
 ---
 - name: Normalized name for ldap ip if on dc-1
   cache:
-    key: 'ldap_ip'
+    key: 'opdk_ldap_ip'
     value: "{{ hostvars[groups['dc-1-ms'][0]][interface_name].ipv4.address }}"
   when: groups['dc-1'] is defined and groups['dc-1-ms'] is defined and groups['dc-1-ldap'] is not defined and inventory_hostname in groups['dc-1'] and hostvars[groups['dc-1-ms'][0]][interface_name].ipv4.address is defined
 
@@ -13,7 +13,7 @@
 - block:
   - name: Normalized name for ldap ip when ldap is a declared if on dc-1
     cache:
-      key: 'ldap_ip'
+      key: 'opdk_ldap_ip'
       value: "{{ hostvars[groups['dc-1-ldap'][0]][interface_name].ipv4.address }}"
 
   - name: Set ldap remote flag
@@ -42,14 +42,14 @@
 
 - name: Normalized name for ldap ip if on dc-2
   cache:
-    key: 'ldap_ip'
+    key: 'opdk_ldap_ip'
     value: "{{ hostvars[groups['dc-2-ms'][0]][interface_name].ipv4.address }}"
   when: groups['dc-2'] is defined and groups['dc-2-ms'] is defined and groups['dc-2-ldap'] is not defined and inventory_hostname in groups['dc-2'] and hostvars[groups['dc-2-ms'][0]][interface_name].ipv4.address is defined
 
 - block:
   - name: Normalized name for ldap ip is declared if on dc-2
     cache:
-      key: 'ldap_ip'
+      key: 'opdk_ldap_ip'
       value: "{{ hostvars[groups['dc-2-ldap'][0]][interface_name].ipv4.address }}"
 
   - name: Set ldap remote flag
@@ -78,6 +78,6 @@
 
 - name: Normalized name for management server local ip to dc-1 if current node is not on dc-1 or dc-2
   cache:
-    key: 'ldap_ip'
+    key: 'opdk_ldap_ip'
     value: "{{ local_mgmt_ip }}"
   when: ldap_ip is not defined or ldap_ip | trim | length == 0

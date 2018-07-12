@@ -6,6 +6,18 @@
     value: '{{ manual_response_file }}'
   when: manual_response_file is defined
 
+- name: Normalized network interface name
+  cache:
+    key: 'interface_name'
+    value: 'ansible_{{ ansible_default_ipv4.interface }}'
+
+- name: Regional Management Server IP Address
+  include_tasks: local_mgmt_ip.yml
+
+# local_mgmt_ip.yml must run before ldap
+- name: Determine LDAP settings for Region
+  include_tasks: ldap.yml
+
 - name: Determine Region of current node
   include_tasks: region.yml
 

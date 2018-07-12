@@ -90,11 +90,9 @@
       - opdk_user_pass is defined
       - opdk_license_target_file_path is defined
       - use_opdk_ldap_remote_host is defined
-      - opdk_ldap_type is defined
       - opdk_ldap_pass is defined
       - ldap_sid is defined
-      - ldap_peer is defined
-      - ldap_ip is defined
+      - opdk_ldap_type is defined
       - opdk_ldap_port is defined
       - opdk_enable_ax is defined
       - opdk_mp_pod is defined
@@ -103,12 +101,25 @@
       - groups['ds'] is defined
       - groups['dc-1-ds'] is defined
       - opdk_use_cass_cluster is defined
+      - opdk_cass_username is defined
+      - opkd_cass_password is defined
+      - opdk_cass_auth is defined
       - opdk_smtp_skip is defined
       - opdk_smtp_mail_from is defined
       - opdk_user_name is defined
       - opdk_user_email is defined
       - pg_pass is defined
+      - opdk_monetization is defined
     msg: "Please provide the missing attributes, it can be either added to either custom-properties.yml or credentials.yml or passed as -e key=value"
+
+- name: Assert that LDAP replication attributes are available
+  assert:
+    that:
+      - ldap_ip is defined
+      - ldap_peer is defined
+    msg: "Please provide the missing attributes, it can be either added to either custom-properties.yml or credentials.yml or passed as -e key=value"
+  when: opdk_ldap_type == '2'
+
 - name: Construct the silent-install file
   become: yes
   template:

@@ -4,3 +4,11 @@ opdk_monetization: false
 opdk_license_target_file_path: "{{ opdk_installer_path }}/license.conf"
 opdk_smtp_skip: 'y'
 ldap_sid: '1'
+ldap_port: 10389
+opdk_enable_ax: 'y'
+opdk_mp_pod: 'gateway'
+opdk_use_zk_cluster: 'y'
+opdk_use_cass_cluster: 'y'
+opdk_cass_username: ''
+opdk_cass_password: ''
+opdk_cass_auth: 'n'

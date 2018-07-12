@@ -6,7 +6,7 @@ APIGEE_ADMINPW='{{ opdk_user_pass }}'
 LICENSE_FILE={{ opdk_license_target_file_path }}
 
 USE_LDAP_REMOTE_HOST={{ use_opdk_ldap_remote_host }}
-LDAP_TYPE='{{ opdk_ldap_type | default('1') }}'
+LDAP_TYPE='{{ opdk_ldap_type }}'
 APIGEE_LDAPPW='{{ opdk_ldap_pass }}'
 {% if opdk_ldap_type == '2' %}
 LDAP_SID={{ ldap_sid }}
@@ -14,15 +14,15 @@ LDAP_PEER={{ ldap_peer }}
 {% endif %}
 {% if (use_opdk_ldap_remote_host is defined and use_opdk_ldap_remote_host | trim == 'y') or use_opdk_ldap_remote_host is not defined %}
 LDAP_HOST={{ ldap_ip }}
-LDAP_PORT={{ opdk_ldap_port | default('10389')}}
+LDAP_PORT={{ opdk_ldap_port }}
 {% endif %}
 
-ENABLE_AX={{ opdk_enable_ax | default('y') }}
-MP_POD={{ opdk_mp_pod | default('gateway') }}
+ENABLE_AX={{ opdk_enable_ax }}
+MP_POD={{ opdk_mp_pod }}
 
 REGION={{ region }}
 
-USE_ZK_CLUSTER={{ opdk_use_zk_cluster | default('y') }}
+USE_ZK_CLUSTER={{ opdk_use_zk_cluster }}
 {# TODO: Build a module to construct the ZK_HOSTS value#}
 ZK_HOSTS="{% for host in groups['ds'] %}{{ hostvars[host]['private_address'] }}{% if hostvars[host]['zk_observer'] is defined and hostvars[host]['zk_observer'] == 'true' %}:observer{% endif %}{% if not loop.last %} {% endif %}{% endfor %}"
 
@@ -35,11 +35,11 @@ ZK_CLIENT_HOSTS="{% for host in groups['dc-2-ds'] %}{{ hostvars[host]['private_a
 ZK_CLIENT_HOSTS="{% for host in groups['ds'] %}{{ hostvars[host]['private_address'] }}{% if not loop.last %} {% endif %}{% endfor %}"
 {% endif %}
 
-USE_CASS_CLUSTER={{ opdk_use_cass_cluster | default('y') }}
+USE_CASS_CLUSTER={{ opdk_use_cass_cluster }}
 CASS_HOSTS="{{ cassandra_hosts }}"
-CASS_USERNAME={{ opdk_cass_username | default('')}}
-CASS_PASSWORD="{{ opdk_cass_password | default('') }}"
-CASS_AUTH={{ opdk_cass_auth | default('n') }}
+CASS_USERNAME={{ opdk_cass_username }}
+CASS_PASSWORD="{{ opdk_cass_password }}"
+CASS_AUTH={{ opdk_cass_auth }}
 
 SMTPMAILFROM="{{ opdk_smtp_mail_from | default(opdk_user_name) }} <{{  opdk_user_email }}>"
 

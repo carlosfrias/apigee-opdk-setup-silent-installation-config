@@ -17,12 +17,12 @@ LDAP_HOST={{ ldap_ip }}
 LDAP_PORT={{ opdk_ldap_port | default('10389')}}
 {% endif %}
 
-ENABLE_AX={{ opdk_enable_ax }}
-MP_POD={{ opdk_mp_pod | default(default_mp_pod) }}
+ENABLE_AX={{ opdk_enable_ax | default('y') }}
+MP_POD={{ opdk_mp_pod | default('gateway') }}
 
 REGION={{ region }}
 
-USE_ZK_CLUSTER={{ opdk_use_zk_cluster }}
+USE_ZK_CLUSTER={{ opdk_use_zk_cluster | default('y') }}
 {# TODO: Build a module to construct the ZK_HOSTS value#}
 ZK_HOSTS="{% for host in groups['ds'] %}{{ hostvars[host]['private_address'] }}{% if hostvars[host]['zk_observer'] is defined and hostvars[host]['zk_observer'] == 'true' %}:observer{% endif %}{% if not loop.last %} {% endif %}{% endfor %}"
 

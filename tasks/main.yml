@@ -99,7 +99,7 @@
       - opdk_user_name is defined
       - opdk_user_email is defined
       - pg_pass is defined
-    msg: "Please provide the missing attribute, it can be either added to either custom-properties.yml or credentials.yml or passed as -e key=value"
+    msg: "Please provide the missing attributes, it can be either added to either custom-properties.yml or credentials.yml or passed as -e key=value"
 - name: Construct the silent-install file
   become: yes
   template:

@@ -6,10 +6,8 @@
     value: '{{ manual_response_file }}'
   when: manual_response_file is defined
 
-- name: Normalized network interface name
-  cache:
-    key: 'interface_name'
-    value: 'ansible_{{ ansible_default_ipv4.interface }}'
+- name: Determine interface name
+  include_tasks: interface.yml
 
 - name: Determine private address of node
   include_tasks: private_address.yml

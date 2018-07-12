@@ -43,7 +43,7 @@ CASS_AUTH={{ opdk_cass_auth | default('n') }}
 
 SMTPMAILFROM="{{ opdk_smtp_mail_from | default(opdk_user_name) }} <{{  opdk_user_email }}>"
 
-SKIP_SMTP={{ opdk_smtp_skip | default('y') }}
+SKIP_SMTP={{ opdk_smtp_skip }}
 {% if opdk_smtp_skip | trim == 'n' %}
 SMTPHOST={{ opdk_smtp_host | default('smtp.gmail.com') }}
 SMTPPORT={{ opdk_smtp_port | default('25') }}

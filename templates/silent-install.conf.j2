@@ -41,7 +41,7 @@ CASS_USERNAME={{ opdk_cass_username }}
 CASS_PASSWORD="{{ opdk_cass_password }}"
 CASS_AUTH={{ opdk_cass_auth }}
 
-SMTPMAILFROM="{{ opdk_smtp_mail_from | default(opdk_user_name) }} <{{  opdk_user_email }}>"
+SMTPMAILFROM="{{ opdk_smtp_mail_from }} <{{  opdk_user_email }}>"
 
 SKIP_SMTP={{ opdk_smtp_skip }}
 {% if opdk_smtp_skip | trim == 'n' %}

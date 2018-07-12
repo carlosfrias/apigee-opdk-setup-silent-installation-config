@@ -35,24 +35,24 @@ ZK_CLIENT_HOSTS="{% for host in groups['dc-2-ds'] %}{{ hostvars[host]['private_a
 ZK_CLIENT_HOSTS="{% for host in groups['ds'] %}{{ hostvars[host]['private_address'] }}{% if not loop.last %} {% endif %}{% endfor %}"
 {% endif %}
 
-USE_CASS_CLUSTER={{ opdk_use_cass_cluster }}
+USE_CASS_CLUSTER={{ opdk_use_cass_cluster | default('y') }}
 CASS_HOSTS="{{ cassandra_hosts }}"
-CASS_USERNAME={{ opdk_cass_username }}
-CASS_PASSWORD='{{ opdk_cass_password }}'
-CASS_AUTH={{ opdk_cass_auth }}
+CASS_USERNAME={{ opdk_cass_username | default('')}}
+CASS_PASSWORD="{{ opdk_cass_password | default('') }}"
+CASS_AUTH={{ opdk_cass_auth | default('n') }}
 
 SMTPMAILFROM="{{ opdk_smtp_mail_from }} <{{  opdk_user_email }}>"
 
-SKIP_SMTP={{ opdk_smtp_skip }}
+SKIP_SMTP={{ opdk_smtp_skip | default('y') }}
 {% if opdk_smtp_skip | trim == 'n' %}
-SMTPHOST={{ opdk_smtp_host }}
-SMTPPORT={{ opdk_smtp_port }}
-SMTPUSER={{ opdk_smtp_user }}
-SMTPPASSWORD='{{ opdk_smtp_password }}'
-SMTPSSL={{ opdk_smtp_ssl }}
+SMTPHOST={{ opdk_smtp_host | default('smtp.gmail.com') }}
+SMTPPORT={{ opdk_smtp_port | default('25') }}
+SMTPUSER={{ opdk_smtp_user | default('') }}
+SMTPPASSWORD="{{ opdk_smtp_password | default('') }}"
+SMTPSSL={{ opdk_smtp_ssl | default('n') }}
 {% endif %}
 {% if opdk_version is version_compare('4.17.09', '<') %}
-BIND_ON_ALL_INTERFACES={{ opdk_bind_on_all_interfaces }}
+BIND_ON_ALL_INTERFACES={{ opdk_bind_on_all_interfaces | default('y') }}
 {% endif %}
 
 {% if pgmaster_ip is defined and pgmaster_ip | trim | length > 0 and pgstandby_ip is defined and pgstandby_ip | trim | length > 0 %}
@@ -71,14 +71,14 @@ MO_PG_HOST={{ pg_ip }}
 {% endif %}
 MO_PG_USER={{ pg_user }}
 MO_PG_PASSWD='{{ pg_pass }}'
-CASS_CLUSTERNAME={{ opdk_cass_clustername }}
-APIGEE_PORT_HTTP_MS={{ ms_ext_mgmt_port }}
+CASS_CLUSTERNAME={{ opdk_cass_clustername | default('Apigee') }}
+APIGEE_PORT_HTTP_MS={{ ms_ext_mgmt_port | default('8080') }}
 {% if groups['dc-1-qpid'] is defined and inventory_hostname in groups['dc-1-qpid'] %}
 QPID_HOST="{{  groups['dc-1-qpid'] | join(' ') }}"
 {% elif groups['dc-2-qpid'] is defined and inventory_hostname in groups['dc-2-qpid'] %}
 QPID_HOST="{{  groups['dc-2-qpid'] | join(' ') }}"
 {% endif %}
-QPID_PORT={{ qpid_ext_mgmt_port }}
-MX_GROUP=mxgroup
+QPID_PORT={{ qpid_ext_mgmt_port | default('8083') }}
+MX_GROUP={{ mxgroup | default('mxgroup') }}
 ORG_NAME={{ org_name }}
 {% endif %}

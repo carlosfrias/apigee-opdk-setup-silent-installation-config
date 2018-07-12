@@ -6,6 +6,9 @@
     value: '{{ manual_response_file }}'
   when: manual_response_file is defined
 
+- name: Determine Region of current node
+  include_tasks: region.yml
+
 - name: Construct the Edge response file
   cache:
     key: opdk_installation_config_file
@@ -23,7 +26,8 @@
     msg: "Ldap password is required, please provide ldap password"
   when: opdk_ldap_pass is not defined or opdk_ldap_pass == ""
 
-- include_tasks: cassandra.yml
+- name: Generate Cassandra IP and Rack configuration
+  include_tasks: cassandra.yml
 
 - name: Regional LDAP IP for dc-1 if replicating LDAP
   set_fact:

@@ -1,11 +1,11 @@
-ENABLE_SYSTEM_CHECK={{ enable_system_check | default('n') }}
+ENABLE_SYSTEM_CHECK={{ enable_system_check }}
 HOSTIP="$(hostname -i)"
 MSIP={{ local_mgmt_ip }}
 ADMIN_EMAIL={{ opdk_user_email }}
 APIGEE_ADMINPW='{{ opdk_user_pass }}'
 LICENSE_FILE={{ opdk_license_target_file_path }}
 
-USE_LDAP_REMOTE_HOST={{ use_opdk_ldap_remote_host | default('n') }}
+USE_LDAP_REMOTE_HOST={{ use_opdk_ldap_remote_host }}
 LDAP_TYPE='{{ opdk_ldap_type | default('1') }}'
 APIGEE_LDAPPW='{{ opdk_ldap_pass }}'
 {% if opdk_ldap_type == '2' %}

@@ -41,6 +41,9 @@
 - name: Generate Cassandra IP and Rack configuration
   include_tasks: cassandra.yml
 
+- name: Set attributes for Postgres Master & Standby replication if available
+  include_tasks: postgres.yml
+
 
 - name: Regional LDAP IP for dc-1 if replicating LDAP
   set_fact:

@@ -29,6 +29,12 @@
     msg: 'dc-1-ms group is not defined in the inventory file, please define the dc-1-ms group in the inventory file'
   when: groups['dc-1-ms'] is not defined
 
+- name: Assert variables are available
+  assert:
+    that:
+    - private_address is defined
+    msg: "Please provide the missing variable"
+
 - name: Construct cassandra hosts configuration
   become: yes
   cassandra_hosts:

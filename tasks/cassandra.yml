@@ -34,6 +34,7 @@
     that:
     - private_address is defined
     - opdk_version is defined
+    - opdk_ldap_pass is defined
     msg: "Please provide the missing variable"
 
 - name: Construct cassandra hosts configuration

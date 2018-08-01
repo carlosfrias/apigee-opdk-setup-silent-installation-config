@@ -33,6 +33,7 @@
   assert:
     that:
     - private_address is defined
+    - opdk_version is defineds
     msg: "Please provide the missing variable"
 
 - name: Construct cassandra hosts configuration

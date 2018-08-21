@@ -1,0 +1,54 @@
+---
+# tasks file for apigee-opdk-settings-network-ip
+
+- name: Refresh setup
+  setup:
+  when: ansible_default_ipv4 is not defined
+
+- name: Normalized network interface name
+  cache:
+    key: 'interface_name'
+    value: 'ansible_{{ ansible_default_ipv4.interface }}'
+
+- name: Assert existence of private address
+  assert:
+    that:
+      - "hostvars[inventory_hostname][interface_name].ipv4.address"
+    msg: "Unable to retrieve private address"
+
+- name: Normalized name for private address
+  cache:
+    key: 'private_address'
+    value: '{{ hostvars[inventory_hostname][interface_name].ipv4.address }}'
+
+- block:
+
+  - name: Update EC2 for private ip on AWS
+    ec2_metadata_facts:
+    when: ansible_ec2_local_ipv4 is not defined
+
+  - name: Normalized name for private address on AWS
+    cache:
+      key: 'private_address'
+      value: '{{ ansible_ec2_local_ipv4 }}'
+    when: ansible_ec2_local_ipv4 is defined
+
+  when: ansible_bios_version is defined and ansible_bios_version | search('amazon')
+
+- name: Normalized name for public address
+  cache:
+    key: 'public_address'
+    value: '{{ inventory_hostname }}'
+
+- block:
+
+  - name: Update cache for public ip on AWS
+    ec2_metadata_facts:
+    when: ansible_ec2_public_ipv4 is not defined
+
+  - name: Normalized name for public address on AWS
+    cache:
+      key: 'public_address'
+      value: '{{ ansible_ec2_public_ipv4 | default(inventory_hostname) }}'
+
+  when: ansible_bios_version is defined and ansible_bios_version | search('amazon')

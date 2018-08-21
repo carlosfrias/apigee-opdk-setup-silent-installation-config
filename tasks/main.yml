@@ -23,6 +23,9 @@
     msg: "Ldap password is required, please provide ldap password"
   when: opdk_ldap_pass is not defined or opdk_ldap_pass == ""
 
+- name: Collect network settings
+  include_tasks: network-settings.yml
+
 #- name: Generate Cassandra IP and Rack configuration
 #  include_tasks: cassandra.yml
 

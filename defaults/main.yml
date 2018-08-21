@@ -1,6 +1,7 @@
 ---
 # defaults file for apigee-opdk-setup-silent-file
 opdk_monetization: false
+opdk_installer_path: /tmp/edge
 opdk_license_target_file_path: "{{ opdk_installer_path }}/license.conf"
 opdk_smtp_skip: 'y'
 opdk_ldap_sid: '1'

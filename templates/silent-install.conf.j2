@@ -2,12 +2,12 @@ ENABLE_SYSTEM_CHECK={{ enable_system_check }}
 HOSTIP="$(hostname -i)"
 MSIP={{ local_mgmt_ip }}
 ADMIN_EMAIL={{ opdk_user_email }}
-APIGEE_ADMINPW='{{ opdk_user_pass }}'
+APIGEE_ADMINPW="{{ opdk_user_pass }}"
 LICENSE_FILE={{ opdk_license_target_file_path }}
 
 USE_LDAP_REMOTE_HOST={{ use_opdk_ldap_remote_host }}
-LDAP_TYPE='{{ opdk_ldap_type }}'
-APIGEE_LDAPPW='{{ opdk_ldap_pass }}'
+LDAP_TYPE="{{ opdk_ldap_type }}"
+APIGEE_LDAPPW="{{ opdk_ldap_pass }}"
 {% if opdk_ldap_type == '2' %}
 LDAP_SID={{ opdk_ldap_sid }}
 LDAP_PEER={{ opdk_ldap_peer }}
@@ -59,7 +59,7 @@ BIND_ON_ALL_INTERFACES={{ opdk_bind_on_all_interfaces | default('y') }}
 PG_MASTER={{ pgmaster_ip }}
 PG_STANDBY={{ pgstandby_ip }}
 {% endif %}
-PG_PWD='{{ pg_pass }}'
+PG_PWD="{{ pg_pass }}"
 
 {% if opdk_monetization is defined and opdk_monetization | bool == True %}
 # Monetization has been configured
@@ -70,7 +70,7 @@ MO_PG_HOST={{ pgmaster_ip }}
 MO_PG_HOST={{ pg_ip }}
 {% endif %}
 MO_PG_USER={{ pg_user }}
-MO_PG_PASSWD='{{ pg_pass }}'
+MO_PG_PASSWD="{{ pg_pass }}"
 CASS_CLUSTERNAME={{ opdk_cass_clustername | default('Apigee') }}
 APIGEE_PORT_HTTP_MS={{ ms_ext_mgmt_port | default('8080') }}
 {% if groups['dc-1-qpid'] is defined and inventory_hostname in groups['dc-1-qpid'] %}

@@ -6,7 +6,7 @@
     value: '{{ manual_response_file }}'
   when: manual_response_file is defined
 
-- name: Construct the Edge response file
+- name: Construct the Edge response file name
   cache:
     key: opdk_installation_config_file
     value: "{{ opdk_installer_path }}/edge-response-{{ opdk_version }}-{{ region }}.conf"

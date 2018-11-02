@@ -6,16 +6,17 @@
     value: '{{ manual_response_file }}'
   when: manual_response_file is defined
 
-- name: Construct the Edge response file name
-  cache:
-    key: opdk_installation_config_file
-    value: "{{ opdk_installer_path }}/edge-response-{{ opdk_version }}-{{ region }}.conf"
+- block:
+  - name: Construct the Edge response file name
+    cache:
+      key: opdk_installation_config_file
+      value: "{{ opdk_installer_path }}/edge-response-{{ opdk_version }}-{{ region }}.conf"
 
-- name: Remove the old response file
-  become: yes
-  file:
-    path: "{{ opdk_installation_config_file }}"
-    state: absent
+  - name: Remove the old response file
+    become: yes
+    file:
+      path: "{{ opdk_installation_config_file }}"
+      state: absent
   when: manual_response_file is not defined or not manual_response_file
 
 - name: Fail if ldap password is not provided

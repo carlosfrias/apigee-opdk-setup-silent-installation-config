@@ -5,6 +5,7 @@ ADMIN_EMAIL={{ opdk_user_email }}
 APIGEE_ADMINPW="{{ opdk_user_pass }}"
 LICENSE_FILE={{ opdk_license_target_file_path }}
 
+{% if region == "dc-1" or region == "dc-2" %}
 USE_LDAP_REMOTE_HOST={{ use_opdk_ldap_remote_host }}
 LDAP_TYPE="{{ opdk_ldap_type }}"
 APIGEE_LDAPPW="{{ opdk_ldap_pass }}"
@@ -15,6 +16,7 @@ LDAP_PEER={{ opdk_ldap_peer }}
 {% if (use_opdk_ldap_remote_host is defined and use_opdk_ldap_remote_host | trim == 'y') or use_opdk_ldap_remote_host is not defined %}
 LDAP_HOST={{ opdk_ldap_ip }}
 LDAP_PORT={{ opdk_ldap_port }}
+{% endif %}
 {% endif %}
 
 ENABLE_AX={{ opdk_enable_ax }}
@@ -55,11 +57,14 @@ SMTPSSL={{ opdk_smtp_ssl | default('n') }}
 BIND_ON_ALL_INTERFACES={{ opdk_bind_on_all_interfaces | default('y') }}
 {% endif %}
 
+{% if region == "dc-1" or region == "dc-2" %}
+
 {% if pgmaster_ip is defined and pgmaster_ip | trim | length > 0 and pgstandby_ip is defined and pgstandby_ip | trim | length > 0 %}
 PG_MASTER={{ pgmaster_ip }}
 PG_STANDBY={{ pgstandby_ip }}
 {% endif %}
 PG_PWD="{{ pg_pass }}"
+{% endif %}
 
 {% if opdk_monetization is defined and opdk_monetization | bool == True %}
 # Monetization has been configured

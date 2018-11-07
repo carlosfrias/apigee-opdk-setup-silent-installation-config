@@ -92,7 +92,7 @@
   when: opdk_ldap_type == '2' or opdk_ldap_type == 2
 
 - name: Set ldap type for the template
-  set_facts:
+  set_fact:
     opdk_ldap_type: 2
   when: opdk_ldap_type == '2' or opdk_ldap_type == 2
 

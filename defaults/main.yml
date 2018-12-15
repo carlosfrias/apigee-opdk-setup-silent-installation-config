@@ -15,3 +15,4 @@ opdk_cass_password: ''
 opdk_cass_auth: 'n'
 opdk_user_name: 'apigee'
 opdk_smtp_mail_from: "apigee"
+enable_system_check: 'n'

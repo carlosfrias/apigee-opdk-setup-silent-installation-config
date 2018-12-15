@@ -13,7 +13,7 @@ galaxy_info:
   - apigee
   - opdk
 dependencies:
-  - { role: apigee-opdk-settings-network-ip }
+  - { role: apigee-opdk-settings-private-address }
   - { role: apigee-opdk-settings-management-server }
   - { role: apigee-opdk-settings-ldap }
   - { role: apigee-opdk-settings-region }

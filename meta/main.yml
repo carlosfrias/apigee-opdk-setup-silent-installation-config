@@ -12,10 +12,4 @@ galaxy_info:
   galaxy_tags:
   - apigee
   - opdk
-dependencies:
-  - { role: apigee-opdk-settings-private-address }
-  - { role: apigee-opdk-settings-management-server }
-  - { role: apigee-opdk-settings-ldap }
-  - { role: apigee-opdk-settings-region }
-  - { role: apigee-opdk-settings-cassandra }
-  - { role: apigee-opdk-settings-postgres }
+dependencies: []

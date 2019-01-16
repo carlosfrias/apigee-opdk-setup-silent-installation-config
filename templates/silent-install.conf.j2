@@ -33,6 +33,14 @@ ZK_HOSTS="{% for host in groups['ds'] %}{{ hostvars[host]['private_address'] }}{
 ZK_CLIENT_HOSTS="{% for host in groups['dc-1-ds'] %}{{ hostvars[host]['private_address'] }}{% if not loop.last %} {% endif %}{% endfor %}"
 {% elif groups['dc-2-edge'] is defined and inventory_hostname in groups['dc-2-edge']%}
 ZK_CLIENT_HOSTS="{% for host in groups['dc-2-ds'] %}{{ hostvars[host]['private_address'] }}{% if not loop.last %} {% endif %}{% endfor %}"
+{% elif groups['dc-3-edge'] is defined and inventory_hostname in groups['dc-3-edge']%}
+ZK_CLIENT_HOSTS="{% for host in groups['dc-3-ds'] %}{{ hostvars[host]['private_address'] }}{% if not loop.last %} {% endif %}{% endfor %}"
+{% elif groups['dc-4-edge'] is defined and inventory_hostname in groups['dc-4-edge']%}
+ZK_CLIENT_HOSTS="{% for host in groups['dc-4-ds'] %}{{ hostvars[host]['private_address'] }}{% if not loop.last %} {% endif %}{% endfor %}"
+{% elif groups['dc-5-edge'] is defined and inventory_hostname in groups['dc-5-edge']%}
+ZK_CLIENT_HOSTS="{% for host in groups['dc-5-ds'] %}{{ hostvars[host]['private_address'] }}{% if not loop.last %} {% endif %}{% endfor %}"
+{% elif groups['dc-6-edge'] is defined and inventory_hostname in groups['dc-6-edge']%}
+ZK_CLIENT_HOSTS="{% for host in groups['dc-6-ds'] %}{{ hostvars[host]['private_address'] }}{% if not loop.last %} {% endif %}{% endfor %}"
 {% else %}
 ZK_CLIENT_HOSTS="{% for host in groups['ds'] %}{{ hostvars[host]['private_address'] }}{% if not loop.last %} {% endif %}{% endfor %}"
 {% endif %}

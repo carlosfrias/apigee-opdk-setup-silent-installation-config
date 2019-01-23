@@ -24,31 +24,12 @@ MP_POD={{ opdk_mp_pod }}
 
 REGION={{ region }}
 
+{% if groups['dc-{{ region_num }}-ds'] is defined %}
 USE_ZK_CLUSTER={{ opdk_use_zk_cluster }}
 {# TODO: Build a module to construct the ZK_HOSTS value#}
 ZK_HOSTS="{% for host in groups['ds'] %}{{ hostvars[host]['private_address'] }}{% if hostvars[host]['zk_observer'] is defined and hostvars[host]['zk_observer'] == 'true' %}:observer{% endif %}{% if not loop.last %} {% endif %}{% endfor %}"
-
 {# TODO: Build a module to construct the ZK_CLIENT_HOSTS value#}
-{% if groups['dc-1-edge'] is defined and inventory_hostname in groups['dc-1-edge'] %}
-ZK_CLIENT_HOSTS="{% for host in groups['dc-1-ds'] %}{{ hostvars[host]['private_address'] }}{% if not loop.last %} {% endif %}{% endfor %}"
-{% elif groups['dc-2-edge'] is defined and inventory_hostname in groups['dc-2-edge']%}
-ZK_CLIENT_HOSTS="{% for host in groups['dc-2-ds'] %}{{ hostvars[host]['private_address'] }}{% if not loop.last %} {% endif %}{% endfor %}"
-{% elif groups['dc-3-edge'] is defined and inventory_hostname in groups['dc-3-edge']%}
-ZK_CLIENT_HOSTS="{% for host in groups['dc-3-ds'] %}{{ hostvars[host]['private_address'] }}{% if not loop.last %} {% endif %}{% endfor %}"
-{% elif groups['dc-4-edge'] is defined and inventory_hostname in groups['dc-4-edge']%}
-ZK_CLIENT_HOSTS="{% for host in groups['dc-4-ds'] %}{{ hostvars[host]['private_address'] }}{% if not loop.last %} {% endif %}{% endfor %}"
-{% elif groups['dc-5-edge'] is defined and inventory_hostname in groups['dc-5-edge']%}
-ZK_CLIENT_HOSTS="{% for host in groups['dc-5-ds'] %}{{ hostvars[host]['private_address'] }}{% if not loop.last %} {% endif %}{% endfor %}"
-{% elif groups['dc-6-edge'] is defined and inventory_hostname in groups['dc-6-edge']%}
-ZK_CLIENT_HOSTS="{% for host in groups['dc-6-ds'] %}{{ hostvars[host]['private_address'] }}{% if not loop.last %} {% endif %}{% endfor %}"
-{% elif groups['dc-7-edge'] is defined and inventory_hostname in groups['dc-7-edge']%}
-ZK_CLIENT_HOSTS="{% for host in groups['dc-7-ds'] %}{{ hostvars[host]['private_address'] }}{% if not loop.last %} {% endif %}{% endfor %}"
-{% elif groups['dc-8-edge'] is defined and inventory_hostname in groups['dc-8-edge']%}
-ZK_CLIENT_HOSTS="{% for host in groups['dc-8-ds'] %}{{ hostvars[host]['private_address'] }}{% if not loop.last %} {% endif %}{% endfor %}"
-{% elif groups['dc-9-edge'] is defined and inventory_hostname in groups['dc-9-edge']%}
-ZK_CLIENT_HOSTS="{% for host in groups['dc-9-ds'] %}{{ hostvars[host]['private_address'] }}{% if not loop.last %} {% endif %}{% endfor %}"
-{% else %}
-ZK_CLIENT_HOSTS="{% for host in groups['ds'] %}{{ hostvars[host]['private_address'] }}{% if not loop.last %} {% endif %}{% endfor %}"
+ZK_CLIENT_HOSTS="{% for host in groups['dc-{{ region_num }}-ds'] %}{{ hostvars[host]['private_address'] }}{% if not loop.last %} {% endif %}{% endfor %}"
 {% endif %}
 
 USE_CASS_CLUSTER={{ opdk_use_cass_cluster }}
@@ -92,9 +73,7 @@ MO_PG_USER={{ pg_user }}
 MO_PG_PASSWD="{{ pg_pass }}"
 CASS_CLUSTERNAME={{ opdk_cass_clustername | default('Apigee') }}
 APIGEE_PORT_HTTP_MS={{ ms_ext_mgmt_port | default('8080') }}
-{% if groups['dc-1-qpid'] is defined and inventory_hostname in groups['dc-1-qpid'] %}
-QPID_HOST="{{  groups['dc-1-qpid'] | join(' ') }}"
-{% elif groups['dc-2-qpid'] is defined and inventory_hostname in groups['dc-2-qpid'] %}
+{% if groups['dc-{{ region_num }}-qpid'] is defined %}
 QPID_HOST="{{  groups['dc-2-qpid'] | join(' ') }}"
 {% endif %}
 QPID_PORT={{ qpid_ext_mgmt_port | default('8083') }}

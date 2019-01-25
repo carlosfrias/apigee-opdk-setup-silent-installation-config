@@ -42,7 +42,7 @@
 - name: Construct name of the response file
   set_fact:
     cacheable: yes
-    opdk_installation_config_file': '{{ opdk_installer_path }}/edge-response-{{ opdk_version }}-{{ region }}.conf'
+    opdk_installation_config_file: '{{ opdk_installer_path }}/edge-response-{{ opdk_version }}-{{ region }}.conf'
 
 - name: Touch file
   become: yes

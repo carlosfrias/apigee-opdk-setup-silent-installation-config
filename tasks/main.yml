@@ -1,16 +1,16 @@
 ---
 # tasks file for apigee-opdk-setup-silent-file
 - name: Update cache with manual_response_file if provided
-  cache:
-    key: 'manual_response_file'
-    value: '{{ manual_response_file }}'
+  set_fact:
+    cacheable: yes
+    manual_response_file: '{{ manual_response_file }}'
   when: manual_response_file is defined
 
 - block:
   - name: Construct the Edge response file name
-    cache:
-      key: opdk_installation_config_file
-      value: "{{ opdk_installer_path }}/edge-response-{{ opdk_version }}-{{ region }}.conf"
+    set_fact:
+      cacheable: yes
+      opdk_installation_config_file: "{{ opdk_installer_path }}/edge-response-{{ opdk_version }}-{{ region }}.conf"
 
   - name: Remove the old response file
     become: yes
@@ -21,12 +21,14 @@
 
 - name: Regional LDAP IP for dc-1 if replicating LDAP
   set_fact:
+    cacheable: yes
     opdk_ldap_sid: '1'
     opdk_ldap_peer: "{{ hostvars[groups['dc-2-ldap'][0]]['private_address'] }}"
   when: region == 'dc-1' and (opdk_ldap_type == '2' or opdk_ldap_type == 2) and groups['dc-2-ldap'] is defined
 
 - name: Regional LDAP IP for dc-2 if replicating LDAP
   set_fact:
+    cacheable: yes
     opdk_ldap_sid: '2'
     opdk_ldap_peer: "{{ hostvars[groups['dc-1-ldap'][0]]['private_address'] }}"
   when: region == 'dc-2' and (opdk_ldap_type == '2' or opdk_ldap_type == 2) and groups['dc-1-ldap'] is defined
@@ -38,9 +40,9 @@
     state: directory
 
 - name: Construct name of the response file
-  cache:
-    key: 'opdk_installation_config_file'
-    value: '{{ opdk_installer_path }}/edge-response-{{ opdk_version }}-{{ region }}.conf'
+  set_fact:
+    cacheable: yes
+    opdk_installation_config_file': '{{ opdk_installer_path }}/edge-response-{{ opdk_version }}-{{ region }}.conf'
 
 - name: Touch file
   become: yes

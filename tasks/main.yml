@@ -99,9 +99,8 @@
   - name: Construct the response-file file
     delegate_to: localhost
     template:
-      src: 'silent-install.conf.j2'
+      src: 'response-file-template.conf.j2'
       dest: "{{ local_response_file_path }}"
-      force: yes
       backup: yes
       owner: '{{ opdk_user_name }}'
       group: '{{ opdk_group_name }}'

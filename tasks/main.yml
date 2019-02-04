@@ -1,5 +1,9 @@
 ---
 # tasks file for apigee-opdk-setup-silent-file
+- name: Construct the Edge response file name
+  set_fact:
+    cacheable: yes
+    response_file_name: "edge-response-{{ opdk_version }}-{{ region }}.conf"
 
 - name: Construct the target Edge response file path
   set_fact:
@@ -21,11 +25,6 @@
   when: manual_response_file is defined and manual_response_file
 
 - block:
-  - name: Construct the Edge response file name
-    set_fact:
-      cacheable: yes
-      response_file_name: "edge-response-{{ opdk_version }}-{{ region }}.conf"
-
   - name: Construct the local Edge response file path
     set_fact:
       cacheable: yes
@@ -107,7 +106,6 @@
       mode: 0655
 
   when: manual_response_file is not defined or not manual_response_file
-
 
 - name: Copy response file to target
   become: yes

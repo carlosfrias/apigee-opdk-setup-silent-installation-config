@@ -16,3 +16,7 @@ opdk_cass_auth: 'n'
 opdk_user_name: 'apigee'
 opdk_smtp_mail_from: "apigee"
 enable_system_check: 'n'
+
+
+# Local resource location
+local_apigee_path: ~/.apigee

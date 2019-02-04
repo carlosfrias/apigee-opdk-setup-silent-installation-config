@@ -20,3 +20,6 @@ enable_system_check: 'n'
 
 # Local resource location
 local_apigee_path: ~/.apigee
+
+# Local secure resource location
+local_apigee_secure_path: ~/.apigee-secure

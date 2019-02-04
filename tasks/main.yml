@@ -8,12 +8,12 @@
 - name: Construct the target Edge response file path
   set_fact:
     cacheable: yes
-    opdk_installation_config_file: "{{ opdk_installer_path }}/{{ response_file_name }}"
+    target_response_file_path: "{{ opdk_installer_path }}/{{ response_file_name }}"
 
 - name: Create Target Response File Folder
   become: yes
   file:
-    path: "{{ opdk_installation_config_file | dirname }}"
+    path: "{{ target_response_file_path | dirname }}"
     state: directory
 
 - name: Update cache with manual_response_file if provided
@@ -28,7 +28,7 @@
   - name: Construct the local Edge response file path
     set_fact:
       cacheable: yes
-      local_response_file_path: "{{ local_apigee_path }}/{{ response_file_name }}"
+      local_response_file_path: "{{ local_apigee_secure_path }}/{{ response_file_name }}"
 
   - name: Regional LDAP IP for dc-1 if replicating LDAP
     set_fact:
@@ -47,7 +47,7 @@
   - name: Create Local Response File Folder
     become: yes
     file:
-      path: "{{ local_apigee_path }}"
+      path: "{{ local_apigee_secure_path }}"
       state: directory
 
   - name: Assert that all necessary attributes have been provided
@@ -109,7 +109,7 @@
   become: yes
   copy:
     src: '{{ local_response_file_path }}'
-    dest: "{{ opdk_installation_config_file }}"
+    dest: "{{ target_response_file_path }}"
     backup: yes
     owner: '{{ opdk_user_name }}'
     group: '{{ opdk_group_name }}'

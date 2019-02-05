@@ -8,7 +8,7 @@
 - name: Construct the target Edge response file path
   set_fact:
     cacheable: yes
-    target_response_file_path: "{{ opdk_installer_path }}/{{ response_file_name }}"
+    target_response_file_path: "{{ opdk_resources_path }}/{{ response_file_name }}"
 
 - name: Create Target Response File Folder
   become: yes

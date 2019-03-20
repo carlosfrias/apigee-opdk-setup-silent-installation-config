@@ -6,21 +6,6 @@
     value: '{{ manual_response_file }}'
   when: manual_response_file is defined
 
-#- name: Determine interface name
-#  include_tasks: interface.yml
-
-#- name: Determine private address of node
-#  include_tasks: private_address.yml
-
-#- name: Regional Management Server IP Address
-#  include_tasks: local_mgmt_ip.yml
-
-#- name: Determine LDAP settings for Region
-#  include_tasks: ldap.yml
-
-#- name: Determine Region of current node
-#  include_tasks: region.yml
-
 - name: Construct the Edge response file
   cache:
     key: opdk_installation_config_file

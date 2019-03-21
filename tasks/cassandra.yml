@@ -31,5 +31,5 @@
   become: yes
   cassandra_hosts:
     inventory_hostname: '{{ inventory_hostname }}'
-    hostvars: '{{ hostvars }}'
+    hostvars: '{{ hostvars | to_json }}'
   when: manual_response_file is not defined or not manual_response_file

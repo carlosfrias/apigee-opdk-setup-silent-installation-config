@@ -118,29 +118,29 @@ def main():
 
     inventory_hostname = module.params['inventory_hostname']
     hostvars = module.params['hostvars']
-    # try:
-    #     hostvars = ast.literal_eval(hostvars)
-    # except SyntaxError as e:
-    #     hostvars = hostvars.replace('{u', '{')
-    #     hostvars = hostvars.replace(", u'", ", '")
-    #     hostvars = hostvars.replace(": u'", ": '")
-    #     hostvars = hostvars.replace("[u'", "['")
-    #     hostvars = hostvars.replace("'", "\"")
-    #
-    #     try:
-    #         hostvars = ast.literal_eval(hostvars)
-    #     except SyntaxError as e:
-    #         msg = "ast.literal_eval conversion failed on line {0} with {1}. ".format(e.lineno, e.msg)
-    #         msg += "This occurred due to an operating system setting. There is a way around."
-    #         msg += "This means that you will need re-run with --tags=apigee-config or --tags=config to generate the silent-install.conf file."
-    #         msg += "Then complete the installation with --skip-tags=os-pre-req,apigee-pre-req."
-    #         module.fail_json(
-    #             changed=False,
-    #             msg=msg,
-    #         )
-    #         return
-    #
-    # hostvars = json.dumps(hostvars)
+    try:
+        hostvars = ast.literal_eval(hostvars)
+    except SyntaxError as e:
+        hostvars = hostvars.replace('{u', '{')
+        hostvars = hostvars.replace(", u'", ", '")
+        hostvars = hostvars.replace(": u'", ": '")
+        hostvars = hostvars.replace("[u'", "['")
+        hostvars = hostvars.replace("'", "\"")
+
+        try:
+            hostvars = ast.literal_eval(hostvars)
+        except SyntaxError as e:
+            msg = "ast.literal_eval conversion failed on line {0} with {1}. ".format(e.lineno, e.msg)
+            msg += "This occurred due to an operating system setting. There is a way around."
+            msg += "This means that you will need re-run with --tags=apigee-config or --tags=config to generate the silent-install.conf file."
+            msg += "Then complete the installation with --skip-tags=os-pre-req,apigee-pre-req."
+            module.fail_json(
+                changed=False,
+                msg=msg,
+            )
+            return
+
+    hostvars = json.dumps(hostvars)
 
     try:
         hostvars = json.loads(hostvars)

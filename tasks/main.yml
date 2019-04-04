@@ -7,9 +7,6 @@
     state: absent
   when: opdk_installation_config_file is defined and (manual_response_file is not defined or not manual_response_file)
 
-- name: Generate Cassandra IP and Rack configuration
-  include_tasks: cassandra.yml
-
 - name: Construct the Edge response file name
   set_fact:
     cacheable: yes

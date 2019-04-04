@@ -63,8 +63,12 @@ SKIP_SMTP={{ opdk_smtp_skip }}
 {% if opdk_smtp_skip | trim == 'n' %}
 SMTPHOST={{ opdk_smtp_host | default('smtp.gmail.com') }}
 SMTPPORT={{ opdk_smtp_port | default('25') }}
-SMTPUSER={{ opdk_smtp_user | default('') }}
-SMTPPASSWORD="{{ opdk_smtp_password | default('') }}"
+{% if opdk_smtp_user is defined and opdk_smtp_user | trim | length > 0 %}
+SMTPUSER={{ opdk_smtp_user }}
+{% endif %}
+{% if opdk_smtp_password is defined and opdk_smtp_password | trim | length > 0 %}
+SMTPPASSWORD="{{ opdk_smtp_password }}"
+{% endif %}
 SMTPSSL={{ opdk_smtp_ssl | default('n') }}
 {% endif %}
 {% if opdk_version is version_compare('4.17.09', '<') %}

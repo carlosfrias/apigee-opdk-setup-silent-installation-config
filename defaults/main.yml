@@ -1,7 +1,6 @@
 ---
 # defaults file for apigee-opdk-setup-silent-file
 opdk_monetization: false
-opdk_resources_path: /tmp/edge
 opdk_license_target_file_path: "{{ opdk_resources_path }}/license.conf"
 opdk_smtp_skip: 'y'
 opdk_ldap_sid: '1'
@@ -18,8 +17,3 @@ opdk_smtp_mail_from: "apigee"
 enable_system_check: 'n'
 
 
-# Local resource location
-local_apigee_path: ~/.apigee
-
-# Local secure resource location
-local_apigee_secure_path: ~/.apigee-secure

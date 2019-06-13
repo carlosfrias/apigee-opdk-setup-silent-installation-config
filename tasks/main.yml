@@ -64,7 +64,7 @@
         - local_mgmt_ip is defined and local_mgmt_ip | trim | length > 0
         - opdk_user_email is defined and opdk_user_email | trim | length > 0
         - opdk_user_pass is defined and opdk_user_pass | trim | length > 0
-        - opdk_license_target_file_path is defined and opdk_license_file_path | trim | length > 0
+        - opdk_license_target_file_path is defined and opdk_license_target_file_path | trim | length > 0
         - use_opdk_ldap_remote_host is defined and use_opdk_ldap_remote_host | trim | length > 0
         - opdk_ldap_pass is defined and opdk_ldap_pass | trim | length > 0
         - opdk_ldap_sid is defined and opdk_ldap_sid | trim | length > 0

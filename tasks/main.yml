@@ -62,6 +62,7 @@
       that:
         - enable_system_check is defined and enable_system_check | trim | length > 0
         - local_mgmt_ip is defined and local_mgmt_ip | trim | length > 0
+        - opdk_user_name is defined and opdk_user_name | trim | length > 0
         - opdk_user_email is defined and opdk_user_email | trim | length > 0
         - opdk_user_pass is defined and opdk_user_pass | trim | length > 0
         - opdk_license_target_file_path is defined and opdk_license_target_file_path | trim | length > 0
@@ -82,7 +83,6 @@
         - opdk_cass_auth is defined and opdk_cass_auth | trim | length > 0
         - opdk_smtp_skip is defined and opdk_smtp_skip | trim | length > 0
         - opdk_smtp_mail_from is defined and opdk_smtp_mail_from | trim | length > 0
-        - opdk_user_name is defined and opdk_user_name | trim | length > 0
         - pg_pass is defined and pg_pass | trim | length > 0
         - opdk_monetization is defined and opdk_monetization | trim | length > 0
       msg: "Please provide the missing attributes, it can be either added to either custom-properties.yml or credentials.yml or passed as -e key=value"

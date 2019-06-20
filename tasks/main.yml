@@ -41,15 +41,15 @@
     set_fact:
       cacheable: yes
       opdk_ldap_sid: '1'
-      opdk_ldap_peer: "{{ hostvars[groups['dc-2-ldap'][0]]['private_address'] }}"
-    when: region == 'dc-1' and (opdk_ldap_type == '2' or opdk_ldap_type == 2) and groups['dc-2-ldap'] is defined
+      opdk_ldap_peer: "{{ hostvars[groups['dc_2_ldap'][0]]['private_address'] }}"
+    when: region == 'dc-1' and (opdk_ldap_type == '2' or opdk_ldap_type == 2) and groups['dc_2_ldap'] is defined
 
   - name: Regional LDAP IP for dc-2 if replicating LDAP
     set_fact:
       cacheable: yes
       opdk_ldap_sid: '2'
-      opdk_ldap_peer: "{{ hostvars[groups['dc-1-ldap'][0]]['private_address'] }}"
-    when: region == 'dc-2' and (opdk_ldap_type == '2' or opdk_ldap_type == 2) and groups['dc-1-ldap'] is defined
+      opdk_ldap_peer: "{{ hostvars[groups['dc_1_ldap'][0]]['private_address'] }}"
+    when: region == 'dc-2' and (opdk_ldap_type == '2' or opdk_ldap_type == 2) and groups['dc_1_ldap'] is defined
 
   - name: Create Local Response File Folder
     become: yes
@@ -76,7 +76,7 @@
         - region is defined and region | trim | length > 0
         - opdk_use_zk_cluster is defined and opdk_use_zk_cluster | trim | length > 0
         - groups['ds'] is defined
-        - groups['dc-1-ds'] is defined
+        - groups['dc_1_ds'] is defined
         - opdk_use_cass_cluster is defined and opdk_use_cass_cluster | trim | length > 0
         - opdk_cass_username is defined and opdk_cass_username | trim | length > 0
         - opdk_cass_password is defined and opdk_cass_password | trim | length > 0

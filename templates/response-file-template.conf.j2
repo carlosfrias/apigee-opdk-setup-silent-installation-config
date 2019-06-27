@@ -22,7 +22,7 @@ LDAP_PORT={{ opdk_ldap_port }}
 ENABLE_AX={{ opdk_enable_ax }}
 MP_POD={{ opdk_mp_pod }}
 
-REGION={{ region }}
+REGION=dc-{{ region_num }}
 
 USE_ZK_CLUSTER={{ opdk_use_zk_cluster }}
 {# TODO: Build a module to construct the ZK_HOSTS value#}

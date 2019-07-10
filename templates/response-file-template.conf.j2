@@ -5,7 +5,7 @@ ADMIN_EMAIL={{ opdk_user_email }}
 APIGEE_ADMINPW="{{ opdk_user_pass }}"
 LICENSE_FILE={{ opdk_license_target_file_path }}
 
-{% if region == "dc_1" or region == "dc_2" %}
+{% if region_num == "1" or region_num == "2" %}
 USE_LDAP_REMOTE_HOST={{ use_opdk_ldap_remote_host }}
 LDAP_TYPE="{{ opdk_ldap_type }}"
 APIGEE_LDAPPW="{{ opdk_ldap_pass }}"

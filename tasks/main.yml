@@ -119,3 +119,4 @@
     owner: '{{ opdk_user_name }}'
     group: '{{ opdk_group_name }}'
     mode: 0655
+  when: manual_response_file is defined

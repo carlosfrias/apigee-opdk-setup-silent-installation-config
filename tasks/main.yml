@@ -106,7 +106,7 @@
     delegate_to: localhost
     template:
       src: 'response-file-template.conf.j2'
-      dest: "{{ local_response_file_path }}"
+      dest: "{{ target_response_file_path }}"
       mode: 0655
 
   when: manual_response_file is not defined or not manual_response_file

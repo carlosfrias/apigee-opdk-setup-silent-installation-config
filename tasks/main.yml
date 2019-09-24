@@ -103,7 +103,6 @@
     when: inventory_hostname in groups['ldap']
 
   - name: Construct the response file
-    delegate_to: localhost
     template:
       src: 'response-file-template.conf.j2'
       dest: "{{ target_response_file_path }}"

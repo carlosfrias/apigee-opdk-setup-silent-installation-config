@@ -109,6 +109,11 @@
       dest: "{{ target_response_file_path }}"
       mode: 0655
 
+  - name: Download a copy of the response file
+    fetch:
+      src: "{{ target_response_file_path }}"
+      dest: "{{ local_response_file_path }}"
+
   when: manual_response_file is not defined or not manual_response_file
 
 - name: Copy response file to target

@@ -113,6 +113,7 @@
     fetch:
       src: "{{ target_response_file_path }}"
       dest: "{{ local_response_file_path }}"
+      flat: "yes"
 
   when: manual_response_file is not defined or not manual_response_file
 

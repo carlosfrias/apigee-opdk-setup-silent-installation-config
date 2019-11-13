@@ -98,8 +98,8 @@
 
     - name: Set ldap type for the template
       set_fact:
-        opdk_ldap_type: 2
-      when: opdk_ldap_type == '2'
+        opdk_ldap_type: "2"
+      when: opdk_ldap_type == "2"
     when: inventory_hostname in groups['ldap']
 
   - name: Construct the response file

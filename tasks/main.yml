@@ -109,6 +109,12 @@
       dest: "{{ target_response_file_path }}"
       mode: 0655
 
+  - name: Remove local response file
+    file:
+      path: "{{ local_response_file_path }}"
+      state: absent
+    delegate_to: localhost
+
   - name: Download a copy of the response file
     fetch:
       src: "{{ target_response_file_path }}"

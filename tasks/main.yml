@@ -42,14 +42,14 @@
       cacheable: yes
       opdk_ldap_sid: '1'
       opdk_ldap_peer: "{{ hostvars[groups['dc_2_ldap'][0]]['private_address'] }}"
-    when: region == 'dc_1' and (opdk_ldap_type == '2' or opdk_ldap_type == 2) and groups['dc_2_ldap'] is defined
+    when: region == 'dc_1' and opdk_ldap_type == '2' and groups['dc_2_ldap'] is defined
 
   - name: Regional LDAP IP for dc-2 if replicating LDAP
     set_fact:
       cacheable: yes
       opdk_ldap_sid: '2'
       opdk_ldap_peer: "{{ hostvars[groups['dc_1_ldap'][0]]['private_address'] }}"
-    when: region == 'dc_2' and (opdk_ldap_type == '2' or opdk_ldap_type == 2) and groups['dc_1_ldap'] is defined
+    when: region == 'dc_2' and opdk_ldap_type == '2' and groups['dc_1_ldap'] is defined
 
   - name: Create Local Response File Folder
     become: yes
@@ -94,7 +94,7 @@
           - opdk_ldap_ip is defined and opdk_ldap_ip | trim | length > 0
           - opdk_ldap_peer is defined and opdk_ldap_peer | trim | length > 0
         msg: "Please provide the missing attributes, it can be either added to either custom-properties.yml or credentials.yml or passed as -e key=value"
-      when: opdk_ldap_type == '2' or opdk_ldap_type == 2
+      when: opdk_ldap_type == '2'
 
     - name: Set ldap type for the template
       set_fact:

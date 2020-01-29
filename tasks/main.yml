@@ -12,10 +12,22 @@
     cacheable: yes
     response_file_name: "edge-response-{{ opdk_version }}-{{ region }}.conf"
 
+- name: Construct the Edge response file name
+  set_fact:
+    cacheable: yes
+    response_file_name: "{{ response_file_name }}"
+  delegate_to: localhost
+
 - name: Construct the target Edge response file path
   set_fact:
     cacheable: yes
     target_response_file_path: "{{ opdk_resources_path }}/{{ response_file_name }}"
+
+- name: Construct the target Edge response file path
+  set_fact:
+    cacheable: yes
+    target_response_file_path: "{{ target_response_file_path }}"
+  delegate_to: localhost
 
 - name: Create Target Response File Folder
   become: yes
@@ -31,11 +43,26 @@
     response_file_name: "{{ manual_response_file | basename }}"
   when: manual_response_file is defined and manual_response_file
 
+- name: Update cache with manual_response_file if provided
+  set_fact:
+    cacheable: yes
+    manual_response_file: '{{ manual_response_file }}'
+    local_response_file_path: "{{ manual_response_file }}"
+    response_file_name: "{{ manual_response_file | basename }}"
+  when: manual_response_file is defined and manual_response_file
+  delegate_to: localhost
+
 - block:
   - name: Construct the local Edge response file path
     set_fact:
       cacheable: yes
       local_response_file_path: "{{ local_apigee_secure_path }}/{{ response_file_name }}"
+
+  - name: Construct the local Edge response file path
+    set_fact:
+      cacheable: yes
+      local_response_file_path: "{{ local_apigee_secure_path }}/{{ response_file_name }}"
+    delegate_to: localhost
 
   - name: Create Local Response File Folder
     become: yes
@@ -83,12 +110,6 @@
         msg: "Please provide the missing attributes, it can be either added to either custom-properties.yml or credentials.yml or passed as -e key=value"
       when: opdk_ldap_type == '2'
 
-#    - name: Set ldap type for the template
-#      set_fact:
-#        opdk_ldap_type: "2"
-#      when: opdk_ldap_type == "2"
-#    when: inventory_hostname in groups['ldap']
-
   - name: Construct the response file
     become: yes
     template:
@@ -118,4 +139,6 @@
     owner: '{{ opdk_user_name }}'
     group: '{{ opdk_group_name }}'
     mode: 0655
+    backup: yes
+    force: yes
   when: manual_response_file is defined

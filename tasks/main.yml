@@ -18,7 +18,7 @@
     target_response_file_path: "{{ opdk_resources_path }}/{{ response_file_name }}"
 
 - name: Create Target Response File Folder
-  become: yes
+#  become: yes
   file:
     path: "{{ target_response_file_path | dirname }}"
     state: directory

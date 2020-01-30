@@ -9,7 +9,7 @@ LICENSE_FILE={{ opdk_license_target_file_path }}
 USE_LDAP_REMOTE_HOST={{ use_opdk_ldap_remote_host }}
 LDAP_TYPE="{{ opdk_ldap_type }}"
 APIGEE_LDAPPW="{{ opdk_ldap_pass }}"
-{% if opdk_ldap_type == "2" %}
+{% if opdk_ldap_type == "2" or opdk_ldap_type == 2 %}
 LDAP_SID={{ opdk_ldap_sid }}
 LDAP_PEER={{ opdk_ldap_peer }}
 {% endif %}

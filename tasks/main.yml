@@ -89,7 +89,7 @@
     template:
       src: 'response-file-template.conf.j2'
       dest: "{{ target_response_file_path }}"
-      mode: 0644
+      mode: 0655
       owner: "{{ opdk_user_name }}"
       group: "{{ opdk_group_name }}"
 

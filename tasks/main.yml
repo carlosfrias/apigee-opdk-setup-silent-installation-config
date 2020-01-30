@@ -12,7 +12,7 @@
     cacheable: yes
     response_file_name: "edge-response-{{ opdk_version }}-{{ region }}.conf"
 
-- name: Construct the target Edge response file path
+- name: Construct the Target Edge Response File Folder Path
   set_fact:
     cacheable: yes
     target_response_file_path: "{{ opdk_resources_path }}/{{ response_file_name }}"
@@ -21,6 +21,7 @@
   become: yes
   file:
     path: "{{ target_response_file_path | dirname }}"
+    mode: 0655
     state: directory
 
 - name: Update cache with manual_response_file if provided

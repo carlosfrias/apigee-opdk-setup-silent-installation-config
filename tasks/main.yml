@@ -84,6 +84,7 @@
       when: opdk_ldap_type == '2'
 
   - name: Construct the response file
+    become: yes
     template:
       src: 'response-file-template.conf.j2'
       dest: "{{ target_response_file_path }}"
@@ -101,7 +102,6 @@
       dest: "{{ local_response_file_path }}"
       flat: "yes"
 
-  become: yes
   when: manual_response_file is not defined or not manual_response_file
 
 - name: Copy response file to target

@@ -12,22 +12,10 @@
     cacheable: yes
     response_file_name: "edge-response-{{ opdk_version }}-{{ region }}.conf"
 
-- name: Construct the Edge response file name
-  set_fact:
-    cacheable: yes
-    response_file_name: "{{ response_file_name }}"
-  delegate_to: 127.0.0.1
-
 - name: Construct the target Edge response file path
   set_fact:
     cacheable: yes
     target_response_file_path: "{{ opdk_resources_path }}/{{ response_file_name }}"
-
-- name: Construct the target Edge response file path
-  set_fact:
-    cacheable: yes
-    target_response_file_path: "{{ target_response_file_path }}"
-  delegate_to: 127.0.0.1
 
 - name: Create Target Response File Folder
   become: yes
@@ -43,26 +31,11 @@
     response_file_name: "{{ manual_response_file | basename }}"
   when: manual_response_file is defined and manual_response_file
 
-- name: Update cache with manual_response_file if provided
-  set_fact:
-    cacheable: yes
-    manual_response_file: '{{ manual_response_file }}'
-    local_response_file_path: "{{ manual_response_file }}"
-    response_file_name: "{{ manual_response_file | basename }}"
-  when: manual_response_file is defined and manual_response_file
-  delegate_to: 127.0.0.1
-
 - block:
   - name: Construct the local Edge response file path
     set_fact:
       cacheable: yes
       local_response_file_path: "{{ local_apigee_secure_path }}/{{ response_file_name }}"
-
-  - name: Construct the local Edge response file path
-    set_fact:
-      cacheable: yes
-      local_response_file_path: "{{ local_apigee_secure_path }}/{{ response_file_name }}"
-    delegate_to: 127.0.0.1
 
   - name: Create Local Response File Folder
     become: yes

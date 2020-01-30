@@ -97,6 +97,7 @@
     delegate_to: 127.0.0.1
 
   - name: Download a copy of the response file
+    become: yes
     fetch:
       src: "{{ target_response_file_path }}"
       dest: "{{ local_response_file_path }}"

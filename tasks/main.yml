@@ -88,7 +88,9 @@
     template:
       src: 'response-file-template.conf.j2'
       dest: "{{ target_response_file_path }}"
-      mode: 0655
+      mode: 0644
+      owner: "{{ opdk_user_name }}"
+      group: "{{ opdk_group_name }}"
 
   - name: Remove local response file
     file:

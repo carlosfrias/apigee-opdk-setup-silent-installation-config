@@ -21,7 +21,7 @@
   become: yes
   file:
     path: "{{ target_response_file_path | dirname }}"
-    mode: 0655
+    mode: 777
     state: directory
 
 - name: Update cache with manual_response_file if provided
@@ -89,7 +89,7 @@
     template:
       src: 'response-file-template.conf.j2'
       dest: "{{ target_response_file_path }}"
-      mode: 0655
+      mode: 777
       owner: "{{ opdk_user_name }}"
       group: "{{ opdk_group_name }}"
 
@@ -115,7 +115,7 @@
     dest: "{{ target_response_file_path }}"
     owner: '{{ opdk_user_name }}'
     group: '{{ opdk_group_name }}'
-    mode: 0655
+    mode: 777
     backup: yes
     force: yes
   when: manual_response_file is defined

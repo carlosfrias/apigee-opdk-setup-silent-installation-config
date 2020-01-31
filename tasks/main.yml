@@ -119,3 +119,7 @@
     backup: yes
     force: yes
   when: manual_response_file is defined
+
+- name: Assert Permissions are Correct
+  become: yes
+  command: chmod -R 777 {{ target_response_file_path | dirname }}

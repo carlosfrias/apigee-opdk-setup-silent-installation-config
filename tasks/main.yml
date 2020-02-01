@@ -17,12 +17,14 @@
     cacheable: yes
     target_response_file_path: "{{ opdk_resources_path }}/{{ response_file_name }}"
 
-- name: Create Target Response File Folder
+- name: Assert Permissions are Correct
   become: yes
   file:
     path: "{{ target_response_file_path | dirname }}"
-    mode: 777
-    state: directory
+    recurse: yes
+    mode: "777"
+    owner: '{{ opdk_user_name }}'
+    group: '{{ opdk_group_name }}'
 
 - name: Update cache with manual_response_file if provided
   set_fact:
@@ -122,4 +124,9 @@
 
 - name: Assert Permissions are Correct
   become: yes
-  command: chmod -R 777 {{ target_response_file_path | dirname }}
+  file:
+    path: "{{ target_response_file_path | dirname }}"
+    recurse: yes
+    mode: "777"
+    owner: '{{ opdk_user_name }}'
+    group: '{{ opdk_group_name }}'

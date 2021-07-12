@@ -53,9 +53,9 @@ ZK_CLIENT_HOSTS="{% for host in groups['ds'] %}{{ hostvars[host]['private_addres
 
 USE_CASS_CLUSTER={{ opdk_use_cass_cluster }}
 {% if groups['aio'] is defined %}
-CASS_HOSTS="{{ cassandra_hosts }}"
+CASS_HOSTS="{{ private_address }}:1,1 "
 {% else %}
-CASS_HOSTS="{{ private_address }}:1,1"
+CASS_HOSTS="{{ cassandra_hosts }} "
 {% endif %}
 CASS_USERNAME={{ opdk_cass_username }}
 CASS_PASSWORD="{{ opdk_cass_password }}"
